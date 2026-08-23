@@ -4,480 +4,293 @@ import altair as alt
 from datetime import datetime
 
 # ============================================================
-# SAHAARA AI
-# AI-Powered Dynamic Mental Health Monitoring
-# & Early Intervention System
+# PAGE CONFIGURATION & GLOBAL CSS
 # ============================================================
 
 st.set_page_config(
-    page_title="Sahaara AI — Mental Wellbeing Platform",
-    page_icon="🫂",
-    layout="wide",
+    page_title="Sahaara AI",
+    page_icon="🧠",
+    layout="centered",
     initial_sidebar_state="expanded"
 )
 
-# ============================================================
-# CUSTOM CSS & STYLING
-# ============================================================
-
+# Custom CSS for dark theme matching the design
 st.markdown("""
 <style>
-/* Main app styling */
-.main {
-    background-color: #f8fafc;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+/* Global App Background */
+.stApp {
+    background-color: #0E0F15;
+    color: #E2E8F0;
 }
 
-/* Home Page Hero */
-.hero {
-    padding: 36px 30px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #9333ea 100%);
-    margin-bottom: 24px;
-    color: white;
-    box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.25);
+/* Sidebar Background and styling */
+[data-testid="stSidebar"] {
+    background-color: #15161E;
+    border-right: 1px solid #1E1F2A;
 }
 
-.hero h1, .hero h3, .hero p {
-    color: white !important;
+/* Hide standard Streamlit radio button circles */
+div[role="radiogroup"] > label > div:first-child {
+    display: none !important;
 }
 
-/* Cards */
-.card {
-    padding: 22px;
-    border-radius: 16px;
-    background: white;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    margin-bottom: 16px;
-}
-
-/* Assessment Wizard Container */
-.step-container {
-    background: white;
-    border-radius: 18px;
-    border: 1px solid #e2e8f0;
-    padding: 28px 32px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-    margin-bottom: 20px;
-}
-
-.step-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #f1f5f9;
-}
-
-.step-badge {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 9999px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    background: #ede9fe;
-    color: #6d28d9;
-}
-
-.required-badge {
-    color: #ef4444;
-    font-weight: bold;
-    margin-left: 4px;
-}
-
-/* Pill Tags */
-.factor-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: 9999px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    background: #fef2f2;
-    color: #991b1b;
-    border: 1px solid #fecaca;
-    margin-right: 6px;
-    margin-bottom: 6px;
-}
-
-.factor-tag-green {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: 9999px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    background: #ecfdf5;
-    color: #065f46;
-    border: 1px solid #a7f3d0;
-    margin-right: 6px;
-    margin-bottom: 6px;
-}
-
-/* Result Cards */
-.result-banner-low {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
-    padding: 24px;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.2);
-}
-
-.result-banner-mod {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    color: white;
-    padding: 24px;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.2);
-}
-
-.result-banner-high {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    color: white;
-    padding: 24px;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.2);
-}
-
-/* Emergency Banner */
-.emergency-box {
-    background: #fff1f2;
-    border: 1.5px solid #fecdd3;
-    border-radius: 14px;
-    padding: 20px;
-    margin-top: 18px;
-    color: #881337;
-}
-
-/* Disclaimer & Footer */
-.disclaimer {
-    padding: 16px 20px;
+/* Style the radio buttons to look like the custom menu items */
+div[role="radiogroup"] > label {
+    padding: 12px 16px;
     border-radius: 12px;
-    background: #fffbeb;
-    border: 1px solid #fde68a;
-    color: #92400e;
-    font-size: 0.92rem;
+    margin-bottom: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+div[role="radiogroup"] > label:hover {
+    background-color: #1E1F2A;
 }
 
-.footer {
-    text-align: center;
-    color: #64748b;
+/* Highlight active menu item (Requires modern browser with :has support, fallback otherwise) */
+div[role="radiogroup"] > label:has(input:checked) {
+    background-color: #2A2146; /* Deep Purple */
+    border: 1px solid #3B2D62;
+}
+div[role="radiogroup"] > label:has(input:checked) p {
+    color: #A78BFA !important; /* Lighter Purple Text */
+    font-weight: 600;
+}
+
+/* Typography in radio */
+div[role="radiogroup"] p {
+    font-size: 16px !important;
+    margin: 0;
+    color: #CBD5E1;
+}
+
+/* Sidebar bottom disclaimer text */
+.sidebar-disclaimer {
+    color: #94A3B8;
+    font-size: 12px;
+    line-height: 1.4;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+/* Hero Section */
+.hero-box {
+    background: linear-gradient(135deg, #9C83FF 0%, #6098FF 100%);
+    padding: 24px 28px;
+    border-radius: 16px;
+    color: #111;
+    margin-bottom: 20px;
+}
+.hero-box h1 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 28px;
+    font-weight: 800;
+    color: #0F172A;
+}
+.hero-box h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #1E293B;
+    line-height: 1.3;
+}
+.hero-box p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: #334155;
+    line-height: 1.5;
+}
+
+/* Disclaimer Box */
+.warning-box {
+    border: 1px solid #7D6B42;
+    background-color: #181615;
+    border-radius: 8px;
+    padding: 16px 20px;
+    color: #D4AF60;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* Feature Cards */
+.feature-card {
+    background-color: #1C1D26;
+    border: 1px solid #282936;
+    border-radius: 16px;
     padding: 24px;
-    font-size: 0.88rem;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+.feature-card:hover {
+    transform: translateY(-2px);
+    border-color: #4B5563;
+}
+.feature-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    filter: grayscale(100%) brightness(200%);
+}
+.feature-text {
+    font-size: 15px;
+    color: #E2E8F0;
+    font-weight: 500;
+    line-height: 1.3;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ============================================================
-# SESSION STATE INITIALIZATION
-# ============================================================
 
-PAGES = [
-    "🏠 Home",
-    "🧠 AI Assessment",
-    "📈 Wellbeing Trend",
-    "🛡️ Case Journey",
-    "👩‍⚕️ Professional Connect",
-    "📊 Counsellor Dashboard",
-    "🌍 Resilience Support",
-    "🔐 Privacy & Safety"
-]
-
+# ============================================================
+# STATE INITIALIZATION
+# ============================================================
+if "assessment_history" not in st.session_state:
+    st.session_state.assessment_history = []
 if "nav_page" not in st.session_state:
     st.session_state.nav_page = "🏠 Home"
 
-if "assessment_history" not in st.session_state:
-    st.session_state.assessment_history = []
-
-if "assessment_step" not in st.session_state:
-    st.session_state.assessment_step = 1
-
-if "assessment_form" not in st.session_state:
-    st.session_state.assessment_form = {
-        "consent": False,
-        "mood": None,
-        "anxiety": None,
-        "stress": None,
-        "sleep": None,
-        "concentration": None,
-        "helplessness": None,
-        "isolation": None,
-        "support": None,
-        "safety_concern": None,
-        "user_text": "",
-        "case_involved": None,
-        "stage": None
-    }
-
-if "step_error" not in st.session_state:
-    st.session_state.step_error = None
-
-if "latest_assessment_result" not in st.session_state:
-    st.session_state.latest_assessment_result = None
-
-
 # ============================================================
-# HELPER & SCORING FUNCTIONS
+# SIDEBAR
 # ============================================================
-
-def clamp(value, minimum=0, maximum=100):
-    return max(minimum, min(maximum, value))
-
-
-def get_risk_level(score):
-    if score < 35:
-        return "LOW"
-    elif score < 65:
-        return "MODERATE"
-    else:
-        return "HIGH"
-
-
-def risk_message(level):
-    if level == "LOW":
-        return "Your responses suggest you are currently managing within a healthy emotional range. Keep prioritizing your self-care routines and trusted connections."
-    elif level == "MODERATE":
-        return "Your responses reflect moderate stress or fatigue indicators. Proactive coping strategies, lifestyle pauses, or speaking with a trusted listener can help restore balance."
-    else:
-        return "Your responses indicate heightened emotional distress or vulnerability. We strongly encourage you to connect with a qualified professional or counsellor for personalized support."
-
-
-def calculate_distress(
-    mood_val,
-    anxiety_val,
-    sleep_val,
-    isolation_val,
-    concentration_val,
-    stress_val,
-    helplessness_val,
-    safety_concern_val,
-    support_val
-):
-    score = 0
-    # Lower mood = higher distress (mood 1..5)
-    score += (6 - mood_val) * 5
-
-    # Negative indicators
-    score += anxiety_val * 5
-    score += sleep_val * 4
-    score += isolation_val * 4
-    score += concentration_val * 3
-    score += stress_val * 5
-    score += helplessness_val * 7
-    score += safety_concern_val * 10
-
-    # Protective factor
-    score -= support_val * 4
-
-    return round(clamp(score))
-
-
-def analyze_text(text):
-    text = text.lower()
-
-    distress_words = [
-        "stressed", "stress", "anxious", "anxiety", "worried", "overwhelmed",
-        "helpless", "hopeless", "fear", "afraid", "isolated", "alone",
-        "pressure", "scared", "distressed", "tired", "depressed", "exhausted", "panic"
-    ]
-
-    safety_words = [
-        "unsafe", "danger", "threat", "threatened", "hurt", "abuse", "harass"
-    ]
-
-    positive_words = [
-        "happy", "calm", "hopeful", "better", "good", "safe", "supported",
-        "relaxed", "peaceful", "optimistic", "strong", "grateful"
-    ]
-
-    distress_matches = [w for w in distress_words if w in text]
-    safety_matches = [w for w in safety_words if w in text]
-    positive_matches = [w for w in positive_words if w in text]
-
-    text_score = (
-        len(distress_matches) * 6
-        + len(safety_matches) * 12
-        - len(positive_matches) * 4
+with st.sidebar:
+    st.markdown("""
+        <div style="display: flex; align-items: center; margin-bottom: 30px;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E2E8F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 12px;">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span style="font-size: 22px; font-weight: bold; color: #fff;">Sahaara AI</span>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    page = st.radio(
+        "Navigation",
+        [
+            "🏠 Home",
+            "🧠 AI Assessment",
+            "📈 Wellbeing Trend",
+            "🛣️ Case Journey",
+            "👥 Professional Connect",
+            "🗂️ Counsellor Dashboard",
+            "🛡️ Resilience Support",
+            "🔒 Privacy & Safety"
+        ],
+        label_visibility="collapsed",
+        key="nav_page"
     )
-
-    return (
-        clamp(text_score, 0, 25),
-        distress_matches,
-        safety_matches,
-        positive_matches
-    )
-
-
-def intervention_plan(level, factors):
-    recommendations = []
-
-    if level == "LOW":
-        recommendations = [
-            ("🌱 Mindful Maintenance", "Continue regular check-ins and maintain balanced sleep and activity habits."),
-            ("🤝 Stay Connected", "Keep sharing your day-to-day experiences with close friends and family."),
-            ("🧘 Active Relaxation", "Engage in hobbies or mindfulness exercises that help you decompress.")
-        ]
-    elif level == "MODERATE":
-        recommendations = [
-            ("💬 Dedicated Support Check", "Consider scheduling a 1-on-1 discussion with a wellbeing counsellor."),
-            ("⏱️ Stress Management", "Practice grounding techniques (e.g., 4-7-8 breathing) during high-pressure moments."),
-            ("🛡️ Boundary Setting", "Protect time for rest, reduce voluntary stressors, and inform a trusted peer.")
-        ]
-    else:
-        recommendations = [
-            ("👩‍⚕️ Professional Review", "Prioritize a clinical or psychological review with a verified healthcare professional."),
-            ("🚨 Safety Protocol Activation", "Ensure you are in a secure environment and notify a designated trusted contact."),
-            ("📞 24/7 Helpline Access", "Utilize available confidential toll-free helplines for immediate stabilization.")
-        ]
-
-    if "Sleep disruption" in factors:
-        recommendations.append(("💤 Sleep Hygiene", "Implement a consistent wind-down routine and limit screen time 1 hour before bed."))
-    if "Social disconnection" in factors:
-        recommendations.append(("🫂 Reconnecting", "Reach out to one trusted individual today or join a supportive peer group."))
-    if "High anxiety" in factors:
-        recommendations.append(("🌬️ Grounding Exercises", "Try 5-4-3-2-1 sensory grounding to ease immediate anxious spikes."))
-    if "Safety concern" in factors:
-        recommendations.append(("🛡️ Protection & Safety", "Contact authorized support services immediately if your physical safety is compromised."))
-
-    return recommendations
-
+    
+    st.markdown("""
+        <div class="sidebar-disclaimer">
+            Prototype only – AI output should always be reviewed by an appropriately qualified human professional.
+        </div>
+    """, unsafe_allow_html=True)
 
 # ============================================================
-# SIDEBAR NAVIGATION
+# HOME PAGE (REDESIGN)
 # ============================================================
-
-st.sidebar.markdown("""
-<div style="text-align: center; padding: 10px 0;">
-    <h2 style="margin: 0; color: #4f46e5;">🫂 Sahaara AI</h2>
-    <p style="font-size: 0.85rem; color: #64748b; margin: 4px 0 0 0;">
-        Dynamic Mental Health Monitoring & Early Intervention
-    </p>
-</div>
-""", unsafe_allow_html=True)
-
-st.sidebar.divider()
-
-page = st.sidebar.radio(
-    "Navigation",
-    PAGES,
-    key="nav_page"
-)
-
-st.sidebar.divider()
-
-# Quick Status in Sidebar
-if st.session_state.assessment_history:
-    latest = st.session_state.assessment_history[-1]
-    color = "🟢" if latest["level"] == "LOW" else ("🟡" if latest["level"] == "MODERATE" else "🔴")
-    st.sidebar.caption(f"**Latest Status**: {color} {latest['level']} ({latest['score']}/100)")
-
-st.sidebar.info(
-    "🔒 **Confidential & Anonymous**\n\n"
-    "Prototype decision-support tool. Always seek qualified human healthcare guidance for clinical needs."
-)
-
-
-# ============================================================
-# HOME PAGE
-# ============================================================
-
 if page == "🏠 Home":
     st.markdown("""
-    <div class="hero">
-        <h1 style="font-size: 2.3rem; margin-bottom: 8px;">🫂 Sahaara AI</h1>
-        <h3 style="font-size: 1.25rem; font-weight: 400; opacity: 0.95; margin-bottom: 14px;">
-            AI-Powered Dynamic Mental Health Monitoring & Early Intervention
-        </h3>
-        <p style="font-size: 1.05rem; line-height: 1.6; max-width: 800px; opacity: 0.9;">
-            A compassionate digital wellbeing platform designed to identify early distress signals, 
-            track longitudinal emotional trends, and seamlessly bridge individuals with authorized professional support.
-        </p>
-    </div>
+        <div class="hero-box">
+            <h1>Sahara AI</h1>
+            <h3>AI-Powered Dynamic Mental Health Monitoring & Early Intervention</h3>
+            <p>A digital wellbeing support platform designed to identify worsening distress early and connect people to appropriate human support.</p>
+        </div>
+        <div class="warning-box">
+            Sahara AI is a prototype early-warning system. It does not provide medical diagnosis.
+        </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class="disclaimer">
-        ℹ️ <b>Important Notice:</b> Sahaara AI is an early-warning wellbeing screening prototype. 
-        It does not formulate medical diagnoses or replace emergency healthcare services.
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.subheader("🎯 Core Pillars")
-
-    col1, col2, col3, col4 = st.columns(4)
-
+    st.markdown("<h3 style='font-size: 20px; font-weight: 600; margin-bottom: 16px;'>What Sahara AI Provides</h3>", unsafe_allow_html=True)
+    
+    # 2x2 Grid for features
+    col1, col2 = st.columns(2)
     with col1:
         st.markdown("""
-        <div class="card" style="text-align: center;">
-            <div style="font-size: 2.2rem; margin-bottom: 8px;">🧠</div>
-            <h4 style="margin: 0 0 6px 0;">Multi-Facet AI Screen</h4>
-            <p style="font-size: 0.85rem; color: #64748b; margin: 0;">8-factor emotional & situational assessment</p>
+        <div class="feature-card">
+            <div class="feature-icon">🧠</div>
+            <div class="feature-text">AI-assisted wellbeing assessment</div>
         </div>
         """, unsafe_allow_html=True)
-
+        
+        st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="feature-card">
+            <div class="feature-icon">⚠️</div>
+            <div class="feature-text">Early warning</div>
+        </div>
+        """, unsafe_allow_html=True)
+        
     with col2:
         st.markdown("""
-        <div class="card" style="text-align: center;">
-            <div style="font-size: 2.2rem; margin-bottom: 8px;">📈</div>
-            <h4 style="margin: 0 0 6px 0;">Dynamic Trends</h4>
-            <p style="font-size: 0.85rem; color: #64748b; margin: 0;">Longitudinal distress delta tracking</p>
+        <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <div class="feature-text">Dynamic distress trends</div>
         </div>
         """, unsafe_allow_html=True)
-
-    with col3:
+        
+        st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
+        
         st.markdown("""
-        <div class="card" style="text-align: center;">
-            <div style="font-size: 2.2rem; margin-bottom: 8px;">🚨</div>
-            <h4 style="margin: 0 0 6px 0;">Early Intervention</h4>
-            <p style="font-size: 0.85rem; color: #64748b; margin: 0;">Automated triage & risk categorization</p>
+        <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <div class="feature-text">Professional connection</div>
         </div>
         """, unsafe_allow_html=True)
 
-    with col4:
-        st.markdown("""
-        <div class="card" style="text-align: center;">
-            <div style="font-size: 2.2rem; margin-bottom: 8px;">👩‍⚕️</div>
-            <h4 style="margin: 0 0 6px 0;">Care Integration</h4>
-            <p style="font-size: 0.85rem; color: #64748b; margin: 0;">Instant professional connection & safe triage</p>
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown("<br><h3 style='font-size: 20px; font-weight: 600; margin-bottom: 24px;'>How It Works</h3>", unsafe_allow_html=True)
 
-    st.divider()
-
-    st.subheader("🔄 The Sahaara Care Flow")
+    # Simplified representation of the flowchart to match look and feel
     st.markdown("""
-    ```mermaid
-    flowchart LR
-        A[🌿 User Check-in] --> B[🧠 Multi-Factor Screening]
-        B --> C[📊 Dynamic Distress Score]
-        C --> D{Risk Level}
-        D -->|🟢 Low| E[🌱 Resilience & Coping Plans]
-        D -->|🟡 Moderate| F[💬 Counsellor Follow-up]
-        D -->|🔴 High| G[🚨 Immediate Professional Connect]
-    ```
-    """)
-
-    st.divider()
-    if st.button("🚀 Start Your Wellbeing Assessment Now", type="primary", use_container_width=True):
-        st.session_state.nav_page = "🧠 AI Assessment"
-        st.session_state.assessment_step = 1
-        st.session_state.latest_assessment_result = None
-        st.session_state.step_error = None
-        st.rerun()
-
-
-# ============================================================
-# REVAMPED AI ASSESSMENT MODULE (WIZARD + STRICT VALIDATION)
-# ============================================================
-
+        <div style="background-color: #12131A; padding: 20px; border-radius: 12px; border: 1px solid #1E1F2A; text-align: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; position: relative;">
+                <div style="position: absolute; top: 20px; left: 10%; right: 10%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
+                <div style="z-index: 2; width: 33%;">
+                    <div style="font-size: 24px; margin-bottom: 8px;">👤</div>
+                    <div style="font-size: 12px; color: #CBD5E1;">User<br>Check-in</div>
+                </div>
+                <div style="z-index: 2; width: 33%;">
+                    <div style="font-size: 24px; margin-bottom: 8px;">🧠</div>
+                    <div style="font-size: 12px; color: #CBD5E1;">AI-assisted<br>Assessment</div>
+                </div>
+                <div style="z-index: 2; width: 33%;">
+                    <div style="font-size: 24px; margin-bottom: 8px;">🎯</div>
+                    <div style="font-size: 12px; color: #CBD5E1;">Dynamic<br>Distress Score</div>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 40px; position: relative;">
+                <div style="position: absolute; top: 20px; left: 25%; right: 25%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
+                <div style="z-index: 2; width: 33%;"></div>
+                <div style="z-index: 2; width: 33%;">
+                    <div style="font-size: 24px; margin-bottom: 8px;">📈</div>
+                    <div style="font-size: 12px; color: #CBD5E1;">Trend<br>Detection</div>
+                </div>
+                <div style="z-index: 2; width: 33%;">
+                    <div style="font-size: 24px; margin-bottom: 8px;">⚠️</div>
+                    <div style="font-size: 12px; color: #CBD5E1;">Early<br>Warning</div>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-around; align-items: center; position: relative;">
+                <div style="position: absolute; top: 20px; left: 25%; right: 25%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
+                <div style="z-index: 2; width: 33%;">
+                    <div style="font-size: 24px; margin-bottom: 8px;">👥</div>
+                    <div style="font-size: 12px; color: #CBD5E1;">Human<br>Professional<br>Review</div>
+                </div>
+                <div style="z-index: 2; width: 33%;">
+                    <div style="font-size: 24px; margin-bottom: 8px;">📞</div>
+                    <div style="font-size: 12px; color: #CBD5E1;">Support &<br>Follow-up</div>
+                </div>
+                <div style="z-index: 2; width: 33%;"></div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
 elif page == "🧠 AI Assessment":
 
     # --- RESULT VIEW IF ALREADY ANALYZED ---
@@ -1160,7 +973,7 @@ elif page == "📈 Wellbeing Trend":
 # CASE JOURNEY
 # ============================================================
 
-elif page == "🛡️ Case Journey":
+elif page == "🛣️ Case Journey":
     st.title("🛡️ Institutional & Case Journey Tracker")
     st.write("Coordinate trauma-informed psychosocial support across distinct phases of the case lifecycle.")
 
@@ -1204,7 +1017,7 @@ elif page == "🛡️ Case Journey":
 # PROFESSIONAL CONNECT
 # ============================================================
 
-elif page == "👩‍⚕️ Professional Connect":
+elif page == "👥 Professional Connect":
     st.title("👩‍⚕️ Professional Care Network")
     st.info("Verified specialist directory for confidential mental health and trauma support.")
 
@@ -1248,7 +1061,7 @@ elif page == "👩‍⚕️ Professional Connect":
 # COUNSELLOR DASHBOARD
 # ============================================================
 
-elif page == "📊 Counsellor Dashboard":
+elif page == "🗂️ Counsellor Dashboard":
     st.title("📊 Authorized Clinical Review Dashboard")
     st.caption("Confidential decision-support overview for designated mental health officers and caseworkers.")
 
@@ -1330,7 +1143,7 @@ elif page == "📊 Counsellor Dashboard":
 # RESILIENCE SUPPORT
 # ============================================================
 
-elif page == "🌍 Resilience Support":
+elif page == "🛡️ Resilience Support":
     st.title("🌍 Environmental & Crisis Stressor Logger")
     st.write("Account for external contextual factors (e.g. natural disasters, heatwaves, displacement) that compound personal distress.")
 
@@ -1368,7 +1181,7 @@ elif page == "🌍 Resilience Support":
 # PRIVACY & SAFETY
 # ============================================================
 
-elif page == "🔐 Privacy & Safety":
+elif page == "🔒 Privacy elif page == "🔐 Privacy & Safety": Safety":
     st.title("🔐 Privacy, Safeguarding & Responsible AI")
 
     st.markdown("""
