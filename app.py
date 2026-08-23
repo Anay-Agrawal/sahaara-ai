@@ -1204,13 +1204,24 @@ elif page == "Professional Connect":
 
         st.info("📞 Call 14416 for Tele-MANAS support.")
 
-    with st.container(border=True):
-        st.markdown("### 🏥 Ayushman Arogya Mandir")
-        st.write(
-            "Government primary-health facilities that also provide "
-            "screening and basic management for mental-health concerns."
-        )
-        st.caption("Mental-health services may vary by centre and location.")
+   with st.container(border=True):
+    st.markdown("### 🏥 Ayushman Arogya Mandir")
+
+    st.write(
+        "Government primary-health facilities providing comprehensive "
+        "primary healthcare, including mental-health screening and "
+        "basic management."
+    )
+
+    st.write(
+        "Tele-consultation and referral pathways can help connect "
+        "patients with higher-level care when required."
+    )
+
+    st.link_button(
+        "🏥 Open Official Ayushman Arogya Mandir Portal",
+        "https://aam.mohfw.gov.in/"
+    )
 
     st.divider()
 
@@ -1241,25 +1252,63 @@ elif page == "Professional Connect":
             "Either"
         ]
     )
+with st.container(border=True):
+    st.markdown(f"### 🔎 {professional_type}")
 
-    with st.container(border=True):
-        st.markdown(f"### 🔎 {professional_type}")
-        st.write(
-            f"Preferred mode: **{mode}**"
-        )
+    st.write(f"**Consultation mode:** {mode}")
 
-        st.info(
-            "Sahara AI does not invent or recommend individual doctors. "
-            "Use a verified professional directory or licensed provider "
-            "when booking a private consultation."
-        )
-
-        if st.button("🔍 Find a Professional", type="primary"):
-            st.success(
-                f"Search criteria saved: {professional_type} • {mode}"
-            )
+    st.markdown(
+        "Choose a real healthcare provider to search for available "
+        "mental-health professionals."
+    )
 
     st.divider()
+
+    # --------------------------------------------------------
+    # PRIVATE PROVIDER OPTIONS
+    # --------------------------------------------------------
+
+    if professional_type == "Psychiatrist":
+        st.markdown("#### 🧠 Psychiatrist Consultation")
+        st.write(
+            "Find psychiatrists for psychiatric assessment and "
+            "medical consultation."
+        )
+
+        st.link_button(
+            "🔎 Find Psychiatrists on Practo",
+            "https://www.practo.com/consult/online-psychiatrist-consultation"
+        )
+
+    elif professional_type == "Clinical Psychologist":
+        st.markdown("#### 🧠 Clinical Psychologist")
+        st.write(
+            "Search for psychologists and mental-health professionals "
+            "for assessment and psychological support."
+        )
+
+        st.link_button(
+            "🔎 Find Psychologists on Practo",
+            "https://www.practo.com/consult"
+        )
+
+    else:
+        st.markdown("#### 💬 Counselling / Psychological Support")
+        st.write(
+            "Search for available psychology and counselling services "
+            "through a real healthcare provider directory."
+        )
+
+        st.link_button(
+            "🔎 Find Professionals on Practo",
+            "https://www.practo.com/consult"
+        )
+
+    st.caption(
+        "Sahara AI does not create fictional doctors, ratings, fees, "
+        "availability or appointment confirmations. You will complete "
+        "the consultation directly through the selected provider."
+    )
 
     # --------------------------------------------------------
     # TRUSTED CONTACT
