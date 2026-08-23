@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
+from streamlit_option_menu import option_menu
 from datetime import datetime
 
 # ============================================================
@@ -153,7 +154,7 @@ div[role="radiogroup"] p {
 if "assessment_history" not in st.session_state:
     st.session_state.assessment_history = []
 if "nav_page" not in st.session_state:
-    st.session_state.nav_page = "🏠 Home"
+    st.session_state.nav_page = "Home"
 if "latest_assessment_result" not in st.session_state:
     st.session_state.latest_assessment_result = None
 if "assessment_step" not in st.session_state:
@@ -309,7 +310,7 @@ def intervention_plan(level, factors):
 # ============================================================
 with st.sidebar:
     st.markdown("""
-        <div style="display: flex; align-items: center; margin-bottom: 30px;">
+        <div style="display: flex; align-items: center; margin-bottom: 20px;">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E2E8F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 12px;">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
             </svg>
@@ -317,20 +318,47 @@ with st.sidebar:
         </div>
     """, unsafe_allow_html=True)
     
-    page = st.radio(
-        "Navigation",
-        [
-            "🏠 Home",
-            "🧠 AI Assessment",
-            "📈 Wellbeing Trend",
-            "🛣️ Case Journey",
-            "👥 Professional Connect",
-            "🗂️ Counsellor Dashboard",
-            "🛡️ Resilience Support",
-            "🔒 Privacy & Safety"
+    page = option_menu(
+        menu_title=None,
+        options=[
+            "Home", 
+            "AI Assessment", 
+            "Wellbeing Trend", 
+            "Case Journey", 
+            "Professional Connect", 
+            "Counsellor Dashboard", 
+            "Resilience Support", 
+            "Privacy & Safety"
         ],
-        label_visibility="collapsed",
-        key="nav_page"
+        icons=[
+            "house", 
+            "brain", 
+            "graph-up", 
+            "signpost-split", 
+            "people", 
+            "window-sidebar", 
+            "shield", 
+            "lock"
+        ],
+        default_index=0,
+        styles={
+            "container": {"padding": "0!important", "background-color": "transparent", "border": "none"},
+            "icon": {"color": "#CBD5E1", "font-size": "18px"}, 
+            "nav-link": {
+                "font-size": "16px", 
+                "text-align": "left", 
+                "margin": "4px 0", 
+                "padding": "12px 16px",
+                "color": "#E2E8F0", 
+                "border-radius": "12px",
+                "--hover-color": "#1E1F2A"
+            },
+            "nav-link-selected": {
+                "background-color": "#2A2146", 
+                "color": "#A78BFA", 
+                "font-weight": "600"
+            }
+        }
     )
     
     st.markdown("""
@@ -342,7 +370,7 @@ with st.sidebar:
 # ============================================================
 # HOME PAGE (REDESIGN)
 # ============================================================
-if page == "🏠 Home":
+if page == "Home":
     st.markdown("""
         <div class="hero-box">
             <h1>Sahara AI</h1>
@@ -440,7 +468,7 @@ if page == "🏠 Home":
             </div>
         </div>
     """, unsafe_allow_html=True)
-elif page == "🧠 AI Assessment":
+elif page == "AI Assessment":
 
     # --- RESULT VIEW IF ALREADY ANALYZED ---
     if st.session_state.latest_assessment_result is not None:
@@ -1041,7 +1069,7 @@ elif page == "🧠 AI Assessment":
 # WELLBEING TREND
 # ============================================================
 
-elif page == "📈 Wellbeing Trend":
+elif page == "Wellbeing Trend":
     st.title("📈 Longitudinal Wellbeing Trend")
     st.write("Monitor how distress and resilience markers evolve over time.")
 
@@ -1122,7 +1150,7 @@ elif page == "📈 Wellbeing Trend":
 # CASE JOURNEY
 # ============================================================
 
-elif page == "🛣️ Case Journey":
+elif page == "Case Journey":
     st.title("🛡️ Institutional & Case Journey Tracker")
     st.write("Coordinate trauma-informed psychosocial support across distinct phases of the case lifecycle.")
 
@@ -1166,7 +1194,7 @@ elif page == "🛣️ Case Journey":
 # PROFESSIONAL CONNECT
 # ============================================================
 
-elif page == "👥 Professional Connect":
+elif page == "Professional Connect":
     st.title("👩‍⚕️ Professional Care Network")
     st.info("Verified specialist directory for confidential mental health and trauma support.")
 
@@ -1210,7 +1238,7 @@ elif page == "👥 Professional Connect":
 # COUNSELLOR DASHBOARD
 # ============================================================
 
-elif page == "🗂️ Counsellor Dashboard":
+elif page == "Counsellor Dashboard":
     st.title("📊 Authorized Clinical Review Dashboard")
     st.caption("Confidential decision-support overview for designated mental health officers and caseworkers.")
 
@@ -1292,7 +1320,7 @@ elif page == "🗂️ Counsellor Dashboard":
 # RESILIENCE SUPPORT
 # ============================================================
 
-elif page == "🛡️ Resilience Support":
+elif page == "Resilience Support":
     st.title("🌍 Environmental & Crisis Stressor Logger")
     st.write("Account for external contextual factors (e.g. natural disasters, heatwaves, displacement) that compound personal distress.")
 
@@ -1330,7 +1358,7 @@ elif page == "🛡️ Resilience Support":
 # PRIVACY & SAFETY
 # ============================================================
 
-elif page == "🔒 Privacy & Safety":
+elif page == "Privacy elif page == "🔒 Privacy & Safety": Safety":
     st.title("🔐 Privacy, Safeguarding & Responsible AI")
 
     st.markdown("""
