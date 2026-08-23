@@ -178,6 +178,133 @@ if "assessment_form" not in st.session_state:
     }
 
 # ============================================================
+# HELPER & SCORING FUNCTIONS
+# ============================================================
+
+def clamp(value, minimum=0, maximum=100):
+    return max(minimum, min(maximum, value))
+
+
+def get_risk_level(score):
+    if score < 35:
+        return "LOW"
+    elif score < 65:
+        return "MODERATE"
+    else:
+        return "HIGH"
+
+
+def risk_message(level):
+    if level == "LOW":
+        return "Your responses suggest you are currently managing within a healthy emotional range. Keep prioritizing your self-care routines and trusted connections."
+    elif level == "MODERATE":
+        return "Your responses reflect moderate stress or fatigue indicators. Proactive coping strategies, lifestyle pauses, or speaking with a trusted listener can help restore balance."
+    else:
+        return "Your responses indicate heightened emotional distress or vulnerability. We strongly encourage you to connect with a qualified professional or counsellor for personalized support."
+
+
+def calculate_distress(
+    mood_val,
+    anxiety_val,
+    sleep_val,
+    isolation_val,
+    concentration_val,
+    stress_val,
+    helplessness_val,
+    safety_concern_val,
+    support_val
+):
+    score = 0
+    # Lower mood = higher distress (mood 1..5)
+    score += (6 - mood_val) * 5
+
+    # Negative indicators
+    score += anxiety_val * 5
+    score += sleep_val * 4
+    score += isolation_val * 4
+    score += concentration_val * 3
+    score += stress_val * 5
+    score += helplessness_val * 7
+    score += safety_concern_val * 10
+
+    # Protective factor
+    score -= support_val * 4
+
+    return round(clamp(score))
+
+
+def analyze_text(text):
+    text = text.lower()
+
+    distress_words = [
+        "stressed", "stress", "anxious", "anxiety", "worried", "overwhelmed",
+        "helpless", "hopeless", "fear", "afraid", "isolated", "alone",
+        "pressure", "scared", "distressed", "tired", "depressed", "exhausted", "panic"
+    ]
+
+    safety_words = [
+        "unsafe", "danger", "threat", "threatened", "hurt", "abuse", "harass"
+    ]
+
+    positive_words = [
+        "happy", "calm", "hopeful", "better", "good", "safe", "supported",
+        "relaxed", "peaceful", "optimistic", "strong", "grateful"
+    ]
+
+    distress_matches = [w for w in distress_words if w in text]
+    safety_matches = [w for w in safety_words if w in text]
+    positive_matches = [w for w in positive_words if w in text]
+
+    text_score = (
+        len(distress_matches) * 6
+        + len(safety_matches) * 12
+        - len(positive_matches) * 4
+    )
+
+    return (
+        clamp(text_score, 0, 25),
+        distress_matches,
+        safety_matches,
+        positive_matches
+    )
+
+
+def intervention_plan(level, factors):
+    recommendations = []
+
+    if level == "LOW":
+        recommendations = [
+            ("🌱 Mindful Maintenance", "Continue regular check-ins and maintain balanced sleep and activity habits."),
+            ("🤝 Stay Connected", "Keep sharing your day-to-day experiences with close friends and family."),
+            ("🧘 Active Relaxation", "Engage in hobbies or mindfulness exercises that help you decompress.")
+        ]
+    elif level == "MODERATE":
+        recommendations = [
+            ("💬 Dedicated Support Check", "Consider scheduling a 1-on-1 discussion with a wellbeing counsellor."),
+            ("⏱️ Stress Management", "Practice grounding techniques (e.g., 4-7-8 breathing) during high-pressure moments."),
+            ("🛡️ Boundary Setting", "Protect time for rest, reduce voluntary stressors, and inform a trusted peer.")
+        ]
+    else:
+        recommendations = [
+            ("👩‍⚕️ Professional Review", "Prioritize a clinical or psychological review with a verified healthcare professional."),
+            ("🚨 Safety Protocol Activation", "Ensure you are in a secure environment and notify a designated trusted contact."),
+            ("📞 24/7 Helpline Access", "Utilize available confidential toll-free helplines for immediate stabilization.")
+        ]
+
+    if "Sleep disruption" in factors:
+        recommendations.append(("💤 Sleep Hygiene", "Implement a consistent wind-down routine and limit screen time 1 hour before bed."))
+    if "Social disconnection" in factors:
+        recommendations.append(("🫂 Reconnecting", "Reach out to one trusted individual today or join a supportive peer group."))
+    if "High anxiety" in factors:
+        recommendations.append(("🌬️ Grounding Exercises", "Try 5-4-3-2-1 sensory grounding to ease immediate anxious spikes."))
+    if "Safety concern" in factors:
+        recommendations.append(("🛡️ Protection & Safety", "Contact authorized support services immediately if your physical safety is compromised."))
+
+    return recommendations
+
+
+# ============================================================
+# SIDEBAR NAVIGATION
 # SIDEBAR
 # ============================================================
 with st.sidebar:
