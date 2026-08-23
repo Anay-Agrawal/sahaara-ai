@@ -159,6 +159,124 @@ div[role="radiogroup"] p {
 # ============================================================
 # STATE INITIALIZATION
 # ============================================================
+
+# 2. Registered Cases (Case Journey)
+if "cases" not in st.session_state:
+    st.session_state.cases = [
+        {
+            "case_id": "SHR-2026-001",
+            "alias": "Survivor A (Priya S.)",
+            "category": "Domestic Violence & Safeguarding",
+            "registered_date": "2026-08-10",
+            "current_stage": "Court / Legal Proceedings",
+            "legal_status": "Trial in Progress (Interim Protection Granted)",
+            "assigned_officer": "Adv. Sunita Rao (DLSA Legal Aid)",
+            "assigned_counsellor": "Dr. Neha Verma",
+            "priority": "HIGH",
+            "distress_score": 76,
+            "support_needs": ["Counselling", "Legal aid", "Witness protection", "Medical support"],
+            "proceedings": [
+                {
+                    "date": "2026-08-10 10:00",
+                    "stage": "Complaint / Initial Support",
+                    "title": "Case Intake & Initial Complaint Logged",
+                    "notes": "Survivor enrolled with immediate psychological first-aid and shelter referral.",
+                    "recorded_by": "Officer Sunita Rao"
+                },
+                {
+                    "date": "2026-08-14 14:30",
+                    "stage": "Investigation",
+                    "title": "FIR Filed & Investigation Officer Assigned",
+                    "notes": "Section 498A / Protection order application registered at Women Police Station.",
+                    "recorded_by": "IO Inspector Sharma"
+                },
+                {
+                    "date": "2026-08-20 11:00",
+                    "stage": "Court / Legal Proceedings",
+                    "title": "Interim Injunction & Witness Hearing Notice",
+                    "notes": "Court granted interim protection order. Trial date scheduled for next week.",
+                    "recorded_by": "Adv. Sunita Rao"
+                }
+            ]
+        },
+        {
+            "case_id": "SHR-2026-002",
+            "alias": "Survivor B (Ananya K.)",
+            "category": "Cyber Harassment & Blackmail",
+            "registered_date": "2026-08-16",
+            "current_stage": "Investigation",
+            "legal_status": "Cyber Cell Investigation Active",
+            "assigned_officer": "Insp. Rajesh Kumar (Cyber Cell)",
+            "assigned_counsellor": "Dr. Rahul Sharma",
+            "priority": "MODERATE",
+            "distress_score": 52,
+            "support_needs": ["Counselling", "Legal aid", "Follow-up monitoring"],
+            "proceedings": [
+                {
+                    "date": "2026-08-16 12:15",
+                    "stage": "Complaint / Initial Support",
+                    "title": "Cyber Complaint Registered on National Portal",
+                    "notes": "Digital evidence and screenshot logs preserved and submitted.",
+                    "recorded_by": "Insp. Rajesh Kumar"
+                },
+                {
+                    "date": "2026-08-21 15:00",
+                    "stage": "Investigation",
+                    "title": "IP Tracing & Content Takedown Notice Issued",
+                    "notes": "Social media platform intermediary notice served under IT Act.",
+                    "recorded_by": "Cyber Cell Team"
+                }
+            ]
+        },
+        {
+            "case_id": "SHR-2026-003",
+            "alias": "Survivor C (Meera R.)",
+            "category": "Workplace Assault & Compensation",
+            "registered_date": "2026-07-28",
+            "current_stage": "Compensation / Rehabilitation",
+            "legal_status": "ICC Inquiry Concluded - Compensation Sanction Pending",
+            "assigned_officer": "Adv. Kavita Sen (Labour Legal Aid)",
+            "assigned_counsellor": "Dr. Asha Mehta",
+            "priority": "LOW",
+            "distress_score": 28,
+            "support_needs": ["Financial assistance", "Rehabilitation", "Follow-up monitoring"],
+            "proceedings": [
+                {
+                    "date": "2026-07-28 09:30",
+                    "stage": "Complaint / Initial Support",
+                    "title": "ICC Formal Complaint Submitted",
+                    "notes": "Inquiry initiated under POSH Act.",
+                    "recorded_by": "ICC Presiding Officer"
+                },
+                {
+                    "date": "2026-08-08 17:00",
+                    "stage": "Court / Legal Proceedings",
+                    "title": "Inquiry Findings Upheld",
+                    "notes": "Workplace disciplinary committee issued penalty and relief directive.",
+                    "recorded_by": "Adv. Kavita Sen"
+                },
+                {
+                    "date": "2026-08-19 10:00",
+                    "stage": "Compensation / Rehabilitation",
+                    "title": "Rehabilitation Grant Application Submitted",
+                    "notes": "Interim compensation file processed with District Social Welfare Board.",
+                    "recorded_by": "Welfare Officer"
+                }
+            ]
+        }
+    ]
+
+# 6. Personal Resilience & Safety Plan
+if "resilience_plan" not in st.session_state:
+    st.session_state.resilience_plan = {
+        "safe_space": "Community Women Center / Sister's residence",
+        "anchors": ["Deep box breathing", "Listening to calming instrumental music", "Holding ground stone"],
+        "emergency_contact": "Kiran Sharma (+91 98765 43210)",
+        "mantra": "I am safe right now. This intense moment will pass, and I have support.",
+        "last_updated": "2026-08-20"
+    }
+
+
 if "assessment_history" not in st.session_state:
     st.session_state.assessment_history = []
 if "nav_page" not in st.session_state:
@@ -1123,48 +1241,271 @@ elif page == "Wellbeing Trend":
 # ============================================================
 
 elif page == "Case Journey":
-    st.title("🛡️ Institutional & Case Journey Tracker")
-    st.write("Coordinate trauma-informed psychosocial support across distinct phases of the case lifecycle.")
 
-    stages = [
-        ("1. Complaint Registered", "Immediate stabilization, psychological first aid, and orientation to available rights."),
-        ("2. Investigation Phase", "Routine stress check-ins, testimony prep anxiety mitigation, and confidential monitoring."),
-        ("3. Legal / Court Proceedings", "Targeted courtroom stress reduction, accompaniment, and high-frequency checks."),
-        ("4. Compensation & Rehabilitation", "Inter-agency coordination, vocational support, and recovery plan management."),
-        ("5. Post-case Follow-up", "Long-term community reintegration and enduring emotional resilience tracking.")
-    ]
+    st.title("🛡️ Case Journey & Legal Support Lifecycle")
+    st.write("Track end-to-end survivor journeys from initial complaint registration to legal proceedings, rehabilitation, and long-term reintegration.")
 
-    for title, description in stages:
-        with st.container(border=True):
-            st.markdown(f"#### {title}")
-            st.write(description)
+    journey_tabs = st.tabs(["📋 Active Cases & Stage Proceedings", "➕ Register New Case"])
 
-    st.divider()
-    st.subheader("📌 Active Support Provisions")
+    # ----------------------------------------------------
+    # TAB 1: ACTIVE CASES & PROCEEDINGS
+    # ----------------------------------------------------
+    with journey_tabs[0]:
+        
+        all_cases = st.session_state.cases
+        case_options = [f"{c['case_id']} - {c['alias']} ({c['current_stage']})" for c in all_cases]
+        
+        selected_case_str = st.selectbox(
+            "Select Case to View & Manage Proceedings:",
+            case_options
+        )
+        
+        # Get active case dict
+        selected_id = selected_case_str.split(" - ")[0]
+        case = next((c for c in all_cases if c["case_id"] == selected_id), all_cases[0])
 
-    actions = st.multiselect(
-        "Select required support mechanisms:",
-        [
-            "Psychological Counselling",
-            "Medical / Healthcare Support",
-            "Legal Aid & Representation",
-            "Witness Protection & Safety Escort",
-            "Safe Relocation & Shelter",
-            "Emergency Financial Relief",
-            "Vocational Rehabilitation",
-            "Routine Wellbeing Monitoring"
+        # Stage visual tracker
+        stages_list = [
+            "Complaint / Initial Support",
+            "Investigation",
+            "Court / Legal Proceedings",
+            "Compensation / Rehabilitation",
+            "Post-case Follow-up"
         ]
-    )
 
-    if actions:
-        st.success("Selected support provisions updated for this active session.")
-        for action in actions:
-            st.markdown(f"• **{action}**")
+        current_idx = stages_list.index(case["current_stage"]) if case["current_stage"] in stages_list else 0
 
+        st.subheader(f"📌 Case Lifecycle Stage Tracker: {case['case_id']}")
+
+        # Render stage badges
+        cols = st.columns(5)
+        for i, s_name in enumerate(stages_list):
+            with cols[i]:
+                if i < current_idx:
+                    st.markdown(f"**Step {i+1}: Completed** ✅")
+                    st.markdown(f"`{s_name}`")
+                elif i == current_idx:
+                    st.markdown(f"**Step {i+1}: ACTIVE** 📍")
+                    st.info(f"**{s_name}**")
+                else:
+                    st.markdown(f"**Step {i+1}: Upcoming** ⏳")
+                    st.caption(f"{s_name}")
+
+        st.divider()
+
+        # Case summary information card
+        with st.container(border=True):
+            sc1, sc2, sc3 = st.columns(3)
+            with sc1:
+                st.markdown(f"**Survivor Alias:** {case['alias']}")
+                st.markdown(f"**Category:** {case['category']}")
+                st.markdown(f"**Registered Date:** {case['registered_date']}")
+            with sc2:
+                priority_badge = "🔴 HIGH" if case['priority'] == 'HIGH' else ("🟡 MODERATE" if case['priority'] == 'MODERATE' else "🟢 LOW")
+                st.markdown(f"**Priority Level:** {priority_badge}")
+                st.markdown(f"**Distress Score:** `{case.get('distress_score', 50)}/100`")
+                st.markdown(f"**Legal Status:** {case['legal_status']}")
+            with sc3:
+                st.markdown(f"**Legal Officer:** {case['assigned_officer']}")
+                st.markdown(f"**Assigned Counsellor:** {case['assigned_counsellor']}")
+                st.markdown(f"**Support Areas:** {', '.join(case.get('support_needs', []))}")
+
+        # Action: Advance / Update Case Stage
+        st.subheader("⚙️ Update Case Proceedings & Stage")
+        
+        up_col1, up_col2 = st.columns([1, 1])
+        
+        with up_col1:
+            with st.container(border=True):
+                st.markdown("#### ⏩ Advance Case Stage")
+                new_stage = st.selectbox(
+                    "Select New Stage for this Case:",
+                    stages_list,
+                    index=current_idx
+                )
+                new_legal_status = st.text_input(
+                    "Updated Legal / Procedural Status:",
+                    value=case['legal_status']
+                )
+                stage_notes = st.text_area(
+                    "Transition Reason / Remarks:",
+                    placeholder="E.g., Investigation completed, charge sheet filed in District Court."
+                )
+
+                if st.button("🚀 Update & Advance Stage", key="btn_advance_stage", use_container_width=True):
+                    case["current_stage"] = new_stage
+                    case["legal_status"] = new_legal_status
+                    
+                    # Add automatic log
+                    new_proceeding = {
+                        "date": datetime.now().strftime("%Y-%m-%d %H:%M"),
+                        "stage": new_stage,
+                        "title": f"Stage Advanced to: {new_stage}",
+                        "notes": stage_notes.strip() if stage_notes.strip() else f"Status updated to: {new_legal_status}",
+                        "recorded_by": "Authorized Case Manager"
+                    }
+                    case["proceedings"].append(new_proceeding)
+                    st.success(f"Case {case['case_id']} advanced to '{new_stage}' successfully!")
+                    st.rerun()
+
+        with up_col2:
+            with st.container(border=True):
+                st.markdown("#### 📝 Log Hearing / Milestone / Update")
+                log_title = st.text_input(
+                    "Milestone / Hearing Title:",
+                    placeholder="E.g., Bail Hearing / Statement Recording / Medical Exam"
+                )
+                logged_by = st.text_input(
+                    "Recorded By:",
+                    value=case['assigned_officer']
+                )
+                log_notes = st.text_area(
+                    "Proceeding Details & Outcomes:",
+                    placeholder="Details of hearing outcome, orders passed, or next scheduled hearing date."
+                )
+
+                if st.button("📌 Log Proceeding Entry", key="btn_log_proceeding", use_container_width=True):
+                    if log_title.strip() and log_notes.strip():
+                        new_log = {
+                            "date": datetime.now().strftime("%Y-%m-%d %H:%M"),
+                            "stage": case["current_stage"],
+                            "title": log_title.strip(),
+                            "notes": log_notes.strip(),
+                            "recorded_by": logged_by.strip()
+                        }
+                        case["proceedings"].append(new_log)
+                        st.success("Proceeding milestone recorded successfully!")
+                        st.rerun()
+                    else:
+                        st.warning("Please fill in both the title and details for the proceeding log.")
+
+        st.divider()
+
+        # Detailed Proceedings Timeline
+        st.subheader(f"📜 Proceedings & Milestones History: {case['case_id']}")
+        
+        if not case.get("proceedings"):
+            st.info("No recorded milestones yet for this case.")
+        else:
+            for p in reversed(case["proceedings"]):
+                with st.container(border=True):
+                    p_col1, p_col2 = st.columns([3, 1])
+                    with p_col1:
+                        st.markdown(f"#### ⚖️ {p['title']}")
+                        st.markdown(f"**Stage:** `{p['stage']}` | **Recorded By:** {p.get('recorded_by', 'Case Officer')}")
+                        st.write(p['notes'])
+                    with p_col2:
+                        st.caption(f"🕒 {p['date']}")
+
+    # ----------------------------------------------------
+    # TAB 2: REGISTER NEW CASE
+    # ----------------------------------------------------
+    with journey_tabs[1]:
+        st.subheader("➕ Register New Survivor / Legal Case")
+        st.write("Complete the intake registration below to initialize dynamic tracking and support coordination.")
+
+        with st.form("new_case_registration_form"):
+            rc1, rc2 = st.columns(2)
+            with rc1:
+                new_alias = st.text_input(
+                    "Survivor Alias / Pseudonym *",
+                    placeholder="E.g., Survivor D (Ritu M.)"
+                )
+                new_category = st.selectbox(
+                    "Case Category *",
+                    [
+                        "Domestic Violence & Safeguarding",
+                        "Cyber Harassment & Stalking",
+                        "Workplace Sexual Harassment (POSH)",
+                        "Trauma & Assault Support",
+                        "Child Safeguarding & POCSO",
+                        "General Legal & Wellbeing Distress"
+                    ]
+                )
+                new_priority = st.selectbox(
+                    "Intake Priority / Urgency *",
+                    ["HIGH", "MODERATE", "LOW"],
+                    index=0
+                )
+            with rc2:
+                new_legal_status = st.selectbox(
+                    "Initial Legal / Procedural Status *",
+                    [
+                        "Initial Complaint Drafted",
+                        "Police Complaint Submitted",
+                        "FIR Registered",
+                        "Charge Sheet Filed / Investigation",
+                        "Trial / Court Hearings",
+                        "Rehabilitation & Compensation Phase"
+                    ]
+                )
+                new_officer = st.text_input(
+                    "Assigned Legal Aid Officer / Advocate",
+                    placeholder="E.g., Adv. Ananya Deshmukh (DLSA)"
+                )
+                new_counsellor = st.selectbox(
+                    "Assigned Mental Health Professional",
+                    ["Dr. Neha Verma", "Dr. Rahul Sharma", "Dr. Asha Mehta", "Unassigned"]
+                )
+
+            new_support_needs = st.multiselect(
+                "Immediate Support Requirements:",
+                [
+                    "Counselling",
+                    "Medical support",
+                    "Legal aid",
+                    "Witness protection",
+                    "Relocation support",
+                    "Financial assistance",
+                    "Rehabilitation",
+                    "Follow-up monitoring"
+                ],
+                default=["Counselling", "Legal aid"]
+            )
+
+            initial_case_notes = st.text_area(
+                "Initial Case Intake Summary & Background:",
+                placeholder="Provide non-identifying summary of incident context, key safety considerations, and immediate next steps."
+            )
+
+            submit_case = st.form_submit_button("🛡️ Submit & Register Case", use_container_width=True)
+
+            if submit_case:
+                if not new_alias.strip():
+                    st.error("Please enter a survivor alias or pseudonym.")
+                else:
+                    new_case_id = f"SHR-2026-{random.randint(104, 999):03d}"
+                    import datetime as dt
+                    created_case = {
+                        "case_id": new_case_id,
+                        "alias": new_alias.strip(),
+                        "category": new_category,
+                        "registered_date": dt.datetime.now().strftime("%Y-%m-%d"),
+                        "current_stage": "Complaint / Initial Support",
+                        "legal_status": new_legal_status,
+                        "assigned_officer": new_officer.strip() if new_officer.strip() else "DLSA Panel Advocate",
+                        "assigned_counsellor": new_counsellor,
+                        "priority": new_priority,
+                        "distress_score": 70 if new_priority == "HIGH" else (50 if new_priority == "MODERATE" else 30),
+                        "support_needs": new_support_needs,
+                        "proceedings": [
+                            {
+                                "date": dt.datetime.now().strftime("%Y-%m-%d %H:%M"),
+                                "stage": "Complaint / Initial Support",
+                                "title": "New Case Registered",
+                                "notes": initial_case_notes.strip() if initial_case_notes.strip() else "Intake assessment and case profile registered in Sahara AI.",
+                                "recorded_by": new_officer.strip() if new_officer.strip() else "Intake Officer"
+                            }
+                        ]
+                    }
+                    st.session_state.cases.append(created_case)
+                    st.success(f"🎉 Case successfully registered with ID: **{new_case_id}**")
+                    st.info("You can now view and manage proceedings for this case under the 'Active Cases & Stage Proceedings' tab.")
 
 # ============================================================
 # PROFESSIONAL CONNECT
 # ============================================================
+
 
 elif page == "Professional Connect":
     st.title("🤝 Professional Connect")
@@ -1365,185 +1706,290 @@ elif page == "Professional Connect":
             st.warning("Please enter a valid contact name.")
 
 elif page == "Resilience Support":
-    st.title("🌍 Environmental & Crisis Stressor Logger")
-    st.write("Account for external contextual factors (e.g. natural disasters, heatwaves, displacement) that compound personal distress.")
 
-    # Dictionary mapping events and severity to specific coping mechanisms
-    resilience_strategies = {
-        "Severe Flooding / Relocation": {
-            "Low impact": [
-                "**Stay Informed:** Monitor local weather updates and official flood warnings.",
-                "**Prep Your Kit:** Review your emergency kit and ensure important documents are stored in waterproof containers.",
-                "**Boundaries:** Limit exposure to stressful news cycles; stick to official updates twice a day."
-            ],
-            "Moderate impact": [
-                "**Routine:** Establish a daily routine in your temporary setup to maintain a sense of normalcy.",
-                "**Community:** Connect with community support groups or local relief organizations.",
-                "**Grounding:** Practice the 5-4-3-2-1 sensory technique when feeling overwhelmed by property damage or disruption."
-            ],
-            "High / Displaced": [
-                "**Safety First:** Prioritize physical safety, clean water, and shelter above all else.",
-                "**Pacing:** Focus on taking things one hour at a time. Do not force yourself to process the trauma immediately.",
-                "**Aid:** Register with official displacement camps or NGOs to access psychosocial first aid.",
-                "**Distancing:** Use psychological distancing: remind yourself 'I am safe right now' when panic arises."
-            ]
-        },
-        "Extreme Heatwave Event": {
-            "Low impact": [
-                "**Hydration:** Drink water consistently and avoid strenuous outdoor activities during peak sun hours.",
-                "**Cooling Breath:** Practice cooling breath techniques (e.g., Sitali breath) to regulate body temperature and anxiety.",
-                "**Check-ins:** Check in on vulnerable neighbors or family members."
-            ],
-            "Moderate impact": [
-                "**Biological Link:** Heat can significantly increase irritability and anxiety. Acknowledge this biological link rather than blaming yourself.",
-                "**Sanctuary:** Create a cool sanctuary space in your home if possible, focusing on airflow.",
-                "**Lower Expectations:** Pace your daily tasks. Lower your expectations for productivity during extreme heat."
-            ],
-            "High / Displaced": [
-                "**Relocate:** Move to community cooling centers immediately if your living situation becomes dangerously hot.",
-                "**Symptom Check:** Watch for physical signs of heat exhaustion which mimic panic attacks (racing heart, dizziness).",
-                "**Conserve Energy:** Conserve physical and mental energy. Rest completely."
-            ]
-        },
-        "Hazardous Air Quality / Pollution": {
-            "Low impact": [
-                "**Monitor AQI:** Keep windows closed and monitor local air quality index (AQI) apps.",
-                "**Protection:** Wear appropriate N95/KN95 masks if you must go outside.",
-                "**Adapt Routine:** Do light indoor stretching instead of outdoor cardio to maintain mental health."
-            ],
-            "Moderate impact": [
-                "**Combat Cabin Fever:** Being trapped indoors can cause 'cabin fever'. Counteract this by creating structured indoor activities.",
-                "**Air Quality:** Use HEPA air purifiers if available. The white noise can also aid focus and relaxation.",
-                "**Virtual Connection:** Stay connected virtually with friends to mitigate the isolation of staying indoors."
-            ],
-            "High / Displaced": [
-                "**Medical Care:** If respiratory distress occurs, seek medical attention rather than assuming it is an anxiety attack.",
-                "**Relocation:** Consider temporary relocation if the air quality remains hazardous for an extended period and you are vulnerable.",
-                "**Mental Escape:** Practice guided imagery meditation to mentally escape the confined indoor environment."
-            ]
-        },
-        "Civil / Community Disruption": {
-            "Low impact": [
-                "**Media Diet:** Limit social media scrolling, which can rapidly amplify fear and outrage.",
-                "**Locus of Control:** Focus on your immediate circle of control: your home, your family, your daily routine.",
-                "**Validation:** Validate your feelings of uncertainty without letting them dictate your actions."
-            ],
-            "Moderate impact": [
-                "**Communication:** Maintain regular communication with trusted friends and family to ensure mutual safety.",
-                "**Safe Zones:** Identify safe zones and avoid engaging in high-conflict areas or intense online debates.",
-                "**Action:** Channel stress into community care or organizing within safe, trusted networks."
-            ],
-            "High / Displaced": [
-                "**Evacuation:** Prioritize physical safety and strictly follow official evacuation or curfew orders.",
-                "**Present Focus:** Focus entirely on the present moment. Trauma responses (numbness, hyperarousal) are normal during active disruptions.",
-                "**First Aid:** Connect with crisis counselors or NGOs operating in the area for psychological first aid."
-            ]
-        },
-        "Financial Crisis / Crop Loss": {
-            "Low impact": [
-                "**Objectivity:** Acknowledge the stressor. Write down a clear, objective list of financial impacts without catastrophizing.",
-                "**Triage:** Identify what immediate expenses can be paused or reduced.",
-                "**Self-Worth:** Remind yourself frequently that your inherent self-worth is not tied to your financial or agricultural output."
-            ],
-            "Moderate impact": [
-                "**Active Aid:** Seek out government subsidies, crop insurance, or community aid programs actively.",
-                "**Micro-planning:** Break down financial planning into small, 1-week increments rather than projecting years into the unknown future.",
-                "**Share the Burden:** Communicate openly with family members about the situation to reduce the burden of carrying it alone."
-            ],
-            "High / Displaced": [
-                "**Survival Needs:** Focus purely on immediate survival needs: food banks, local shelters, or community kitchens.",
-                "**Community Support:** Do not isolate yourself out of shame. Reaching out to community networks is a vital survival mechanism.",
-                "**Specialized Counsel:** Contact financial counselors, agricultural extension officers, or NGOs who specialize in crisis recovery."
-            ]
-        },
-        "Other Acute External Stressor": {
-            "Low impact": [
-                "**Baselines:** Maintain your baseline self-care routines (sleep, nutrition, hydration).",
-                "**Information Diet:** Limit exposure to news and social media surrounding the stressor.",
-                "**Micro-control:** Identify just one small thing you can control today."
-            ],
-            "Moderate impact": [
-                "**Cognitive Grace:** Acknowledge that your cognitive load is high. It is completely normal to be forgetful or irritable.",
-                "**Delegation:** Lean heavily on your support network and explicitly ask for help with daily tasks.",
-                "**Nervous System Reset:** Practice box breathing (inhale 4s, hold 4s, exhale 4s, hold 4s) to reset your nervous system."
-            ],
-            "High / Displaced": [
-                "**Survival Mode:** Recognize your brain is in survival mode. Do not expect normal emotional processing right now.",
-                "**Physiology First:** Secure basic physiological and safety needs before attempting any deep emotional work.",
-                "**Intervention:** Seek out professional crisis intervention and community aid as soon as safely possible."
-            ]
-        }
-    }
+    st.title("🌍 Resilience & Contextual Coping Support")
+    st.write("Dynamic resilience evaluation, interactive grounding toolkits, and personalized emergency safety planning for acute distress and crisis contexts.")
 
-    event = st.selectbox(
-        "Select external contextual event:",
-        [
-            "No major event",
-            "Severe Flooding / Relocation",
-            "Extreme Heatwave Event",
-            "Hazardous Air Quality / Pollution",
-            "Civil / Community Disruption",
-            "Financial Crisis / Crop Loss",
-            "Other Acute External Stressor"
-        ]
-    )
+    res_tabs = st.tabs([
+        "📊 Dynamic Context & Resilience Index",
+        "🧘 Interactive Grounding & Calming Toolkit",
+        "🛡️ Personalized Safety & Action Plan",
+        "🏛️ Community Crisis Resources"
+    ])
 
-    if event != "No major event":
-        severity = st.radio(
-            "Impact intensity on daily life:",
-            ["Low impact", "Moderate impact", "High / Displaced"],
-            horizontal=True,
-            index=None
+    # ----------------------------------------------------
+    # TAB 1: DYNAMIC CONTEXT & RESILIENCE INDEX
+    # ----------------------------------------------------
+    with res_tabs[0]:
+        st.subheader("📊 Dynamic Context Risk & Resilience Calculator")
+        st.write("Analyze environmental, legal, and social stressors alongside protective factors to calculate a composite Resilience Capacity Index.")
+
+        c1, c2 = st.columns(2)
+
+        with c1:
+            st.markdown("#### 🌪️ External Stressors & Crisis Context")
+            env_event = st.selectbox(
+                "Environmental / Crisis Situation:",
+                [
+                    "No major event (Normal context)",
+                    "Severe Heatwave / Climate Strain",
+                    "Flooding / Displacement",
+                    "Severe Air Pollution / Smog",
+                    "Community Conflict / Riot / Lockdown",
+                    "Eviction / Housing Insecurity"
+                ]
+            )
+
+            legal_strain = st.select_slider(
+                "Legal & Case Proceeding Stress Level:",
+                options=["None", "Mild", "Moderate", "Severe", "Critical"],
+                value="Moderate"
+            )
+
+            social_disruption = st.select_slider(
+                "Social / Family Disruption Level:",
+                options=["None", "Mild", "Moderate", "Severe", "Critical"],
+                value="Mild"
+            )
+
+            financial_strain = st.select_slider(
+                "Economic & Living Burden:",
+                options=["None", "Mild", "Moderate", "Severe", "Critical"],
+                value="Moderate"
+            )
+
+        with c2:
+            st.markdown("#### 🛡️ Protective & Buffer Factors")
+            shelter_safety = st.radio(
+                "Access to safe and secure physical shelter:",
+                ["Fully secure", "Moderately secure", "Uncertain / Unsafe"],
+                index=0
+            )
+
+            trusted_support_avail = st.radio(
+                "Immediate access to trusted family or friend:",
+                ["Strong support available", "Limited support", "Completely isolated"],
+                index=0
+            )
+
+            access_to_legal_aid = st.checkbox("Active legal representation / DLSA assigned", value=True)
+            access_to_counsellor = st.checkbox("Active connection with mental-health professional", value=True)
+            daily_routine_stability = st.checkbox("Able to maintain basic nutrition & sleep routine", value=True)
+
+        st.divider()
+
+        if st.button("🧮 Compute Dynamic Resilience & Coping Profile", use_container_width=True):
+            strain_map = {"None": 0, "Mild": 1, "Moderate": 2, "Severe": 3, "Critical": 4}
+            env_map = {
+                "No major event (Normal context)": 0,
+                "Severe Heatwave / Climate Strain": 2,
+                "Flooding / Displacement": 4,
+                "Severe Air Pollution / Smog": 2,
+                "Community Conflict / Riot / Lockdown": 4,
+                "Eviction / Housing Insecurity": 3
+            }
+
+            stress_score = (
+                env_map[env_event] * 3 +
+                strain_map[legal_strain] * 3 +
+                strain_map[social_disruption] * 2 +
+                strain_map[financial_strain] * 2
+            )
+
+            prot_score = 0
+            if shelter_safety == "Fully secure": prot_score += 10
+            elif shelter_safety == "Moderately secure": prot_score += 5
+            
+            if trusted_support_avail == "Strong support available": prot_score += 10
+            elif trusted_support_avail == "Limited support": prot_score += 5
+
+            if access_to_legal_aid: prot_score += 5
+            if access_to_counsellor: prot_score += 5
+            if daily_routine_stability: prot_score += 5
+
+            def clamp(value, minimum=0, maximum=100):
+                return max(minimum, min(maximum, value))
+
+            base_capacity = 50 + (prot_score * 1.5) - (stress_score * 1.3)
+            resilience_index = round(clamp(base_capacity, 10, 98))
+
+            st.subheader("🎯 Dynamic Resilience Assessment Result")
+
+            rc_col1, rc_col2, rc_col3 = st.columns(3)
+            with rc_col1:
+                st.metric("Resilience Capacity Index", f"{resilience_index}%")
+                if resilience_index >= 70:
+                    st.caption("🟢 Robust Coping Capacity")
+                elif resilience_index >= 45:
+                    st.caption("🟡 Moderate Vulnerability — Active Buffering Needed")
+                else:
+                    st.caption("🔴 High Vulnerability — Urgent Support Recommended")
+
+            with rc_col2:
+                st.metric("Cumulative External Stress", f"{round(clamp(stress_score * 2.5))}/100")
+            with rc_col3:
+                st.metric("Protective Buffer Strength", f"{round(clamp(prot_score * 2.8))}/100")
+
+            # Recommendations based on evaluation
+            st.markdown("#### 🛠️ Contextual Intervention & Support Blueprint")
+            if resilience_index >= 70:
+                st.success("✅ **Favorable Coping Balance**: Protective buffers adequately shield against ongoing stressors. Continue routine mindfulness and community engagement.")
+            elif resilience_index >= 45:
+                st.warning("⚠️ **Moderate Strain Alert**: External burdens are putting pressure on coping buffers. Strengthen trusted-person contact and leverage legal aid support.")
+            else:
+                st.error("🚨 **High Strain & Vulnerability Alert**: Cumulative stressors significantly outweigh current protective factors. Immediate safety planning and professional intervention recommended.")
+
+            st.write(f"• **Environmental Action:** Specific guidance for *{env_event}* — Maintain access to local emergency centers and hydrated/safe resting areas.")
+            st.write(f"• **Legal Proceeding Support:** For *{legal_strain}* strain — Request pre-hearing briefing sessions with your assigned legal aid advocate.")
+
+    # ----------------------------------------------------
+    # TAB 2: INTERACTIVE GROUNDING & CALMING TOOLKIT
+    # ----------------------------------------------------
+    with res_tabs[1]:
+        st.subheader("🧘 Interactive Trauma-Informed Grounding Toolkit")
+        st.write("Evidence-based sensory and somatic exercises to rapidly regulate nervous system activation during panic, flashbacks, or high stress.")
+
+        toolkit_choice = st.radio(
+            "Select Calming Exercise:",
+            ["5-4-3-2-1 Sensory Grounding", "4-7-8 & Box Breathing Guide", "Progressive Muscle Relaxation Prompt"],
+            horizontal=True
         )
 
-        if severity:
-            st.markdown("---")
-            
-            # Display contextual warning/info box based on severity
-            if severity == "Low impact":
-                st.info(f"ℹ️ **Context Registered:** {event} (Low Impact). Incorporating basic coping mechanisms.")
-            elif severity == "Moderate impact":
-                st.warning(f"⚠️ **Context Registered:** {event} (Moderate Impact). Elevated resilience support recommended.")
-            else:
-                st.error(f"🚨 **Critical Context Registered:** {event} (High / Displaced). Prioritize immediate safety, shelter, and hydration needs.")
-                
-            if severity in ["Moderate impact", "High / Displaced"]:
-                st.markdown("### 📡 Government Agency Dispatch (Simulation)")
-                st.success("An automated data packet has been prepared for transmission to local emergency management agencies to assist affected individuals.")
-                st.markdown("""
-                <div style='background-color: #1E1F2A; border-left: 4px solid #F59E0B; padding: 15px; border-radius: 8px; margin-bottom: 15px;'>
-                    <h4 style='margin-top: 0; color: #FCD34D;'>🚨 Direct Emergency Contacts</h4>
-                    <p style='margin-bottom: 8px; color: #E2E8F0; font-size: 0.9rem;'>While this prototype simulates agency dispatch, please contact authorities directly in a real crisis:</p>
-                    <div style='font-size: 1.05rem; line-height: 1.6;'>
-                        📞 National Emergency Number: <b style='color: #60A5FA;'>112</b><br>
-                        📞 Disaster Management (NDMA/NDRF): <b style='color: #60A5FA;'>1078</b><br>
-                        📞 Ambulance Services: <b style='color: #60A5FA;'>108</b>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
+        if toolkit_choice == "5-4-3-2-1 Sensory Grounding":
+            st.markdown("""
+            #### 👁️ 5-4-3-2-1 Sensory Grounding Technique
+            Acknowledge your immediate surroundings to bring your focus back to the present moment.
+            """)
 
-            st.markdown(f"### 🛡️ Resilience & Coping Strategies for {severity}")
-            
-            tips = resilience_strategies.get(event, {}).get(severity, [])
-            
-            for tip in tips:
-                import re
-                tip_formatted = re.sub(r'\*\*(.*?)\*\*', r"<span style='color: #60A5FA; font-weight: 600;'>\1</span>", tip)
-                st.markdown(f"<div style='background-color: #1E1F2A; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #3B82F6;'>{tip_formatted}</div>", unsafe_allow_html=True)
-                
-            st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("Log Stressor to Case Profile", type="primary"):
-                st.success("✅ Stressor logged successfully. Your AI assessments will now take this context into account.")
+            with st.container(border=True):
+                g1 = st.checkbox("👀 **5 Things You Can SEE**: Look around and notice 5 distinct objects (e.g. a chair, window, light, pattern, shoes).")
+                g2 = st.checkbox("✋ **4 Things You Can TOUCH**: Feel 4 different textures (e.g. your clothes, table surface, phone case, cool air on skin).")
+                g3 = st.checkbox("👂 **3 Things You Can HEAR**: Listen closely for 3 background sounds (e.g. birds, fan whirring, distant traffic).")
+                g4 = st.checkbox("👃 **2 Things You Can SMELL**: Identify 2 scents around you (e.g. fresh breeze, soap, coffee, or your palm).")
+                g5 = st.checkbox("👅 **1 Thing You Can TASTE**: Focus on 1 taste in your mouth (e.g. a sip of cool water, mint, or clean breath).")
+
+                completed_steps = sum([g1, g2, g3, g4, g5])
+                st.progress(completed_steps / 5.0)
+
+                if completed_steps == 5:
+                    st.success("🌟 Excellent job! Take a long, deep breath. Notice how your body feels more grounded in the here and now.")
+                else:
+                    st.info(f"Progress: {completed_steps}/5 sensory anchors completed.")
+
+        elif toolkit_choice == "4-7-8 & Box Breathing Guide":
+            st.markdown("#### 🫁 4-7-8 & Box Breathing Pacing Guide")
+            st.caption("Deep rhythmic breathing activates the parasympathetic nervous system to slow heart rate.")
+
+            with st.container(border=True):
+                b_c1, b_c2, b_c3, b_c4 = st.columns(4)
+                with b_c1:
+                    st.info("### 1. Inhale\n**4 Seconds**\nBreathe in gently through your nose.")
+                with b_c2:
+                    st.warning("### 2. Hold\n**7 Seconds**\nHold breath softly without straining.")
+                with b_c3:
+                    st.error("### 3. Exhale\n**8 Seconds**\nRelease slowly through parted lips.")
+                with b_c4:
+                    st.success("### 4. Rest\n**Repeat 4x**\nFeel your shoulders and chest relax.")
+
         else:
-            st.info("👆 Please select an impact intensity above to generate tailored coping mechanisms.")
+            st.markdown("#### 💆 Progressive Muscle Relaxation (PMR)")
+            st.write("Tense each muscle group firmly for 5 seconds, then release completely for 10 seconds.")
+            st.markdown("""
+            1. **Feet & Calves:** Curl toes downwards, tense calves — *Release and let limp.*
+            2. **Hands & Arms:** Clench both fists, tighten biceps — *Release and drop arms.*
+            3. **Shoulders & Neck:** Raise shoulders towards ears — *Drop and exhale.*
+            4. **Face & Jaw:** Scrunch eyes and clench jaw — *Unclench and soften face.*
+            """)
 
-    else:
-        st.success("✅ No external crisis factor reported. You can log environmental stressors here if circumstances change.")
+    # ----------------------------------------------------
+    # TAB 3: PERSONALIZED SAFETY & ACTION PLAN
+    # ----------------------------------------------------
+    with res_tabs[2]:
+        st.subheader("🛡️ Personalized Safety & Resilience Action Plan")
+        st.write("Formulate and update your personal crisis blueprint with designated safe places, calming anchors, and emergency protocols.")
+
+        current_plan = st.session_state.resilience_plan
+
+        with st.form("safety_plan_form"):
+            sp_col1, sp_col2 = st.columns(2)
+            with sp_col1:
+                safe_loc = st.text_input(
+                    "Designated Safe Physical Location(s):",
+                    value=current_plan.get("safe_space", "")
+                )
+                anchors_text = st.text_area(
+                    "Personal Calming Anchors (one per line):",
+                    value="\n".join(current_plan.get("anchors", []))
+                )
+            with sp_col2:
+                em_contact = st.text_input(
+                    "Primary Emergency Contact & Phone:",
+                    value=current_plan.get("emergency_contact", "")
+                )
+                safe_mantra = st.text_input(
+                    "Personal Grounding Mantra / Reminder:",
+                    value="I am safe right now. This intense moment will pass, and I have support."
+                )
+
+            save_sp = st.form_submit_button("💾 Save & Update Safety Plan", use_container_width=True)
+
+            if save_sp:
+                anchors_list = [a.strip() for a in anchors_text.split("\n") if a.strip()]
+                import datetime as dt
+                st.session_state.resilience_plan = {
+                    "safe_space": safe_loc.strip(),
+                    "anchors": anchors_list,
+                    "emergency_contact": em_contact.strip(),
+                    "mantra": safe_mantra.strip(),
+                    "last_updated": dt.datetime.now().strftime("%Y-%m-%d %H:%M")
+                }
+                st.success("Personal Safety & Resilience Plan updated successfully!")
+
+        st.divider()
+        st.markdown("#### 📜 Active Safety Plan Summary Card")
+        with st.container(border=True):
+            st.markdown(f"**🏠 Safe Space:** {st.session_state.resilience_plan.get('safe_space', 'Not specified')}")
+            st.markdown(f"**📞 Emergency Contact:** {st.session_state.resilience_plan.get('emergency_contact', 'Not specified')}")
+            st.markdown(f"**🧘 Calming Anchors:** {', '.join(st.session_state.resilience_plan.get('anchors', []))}")
+            st.info(f"💬 *\"{st.session_state.resilience_plan.get('mantra', 'I am safe in this moment.')}\"*")
+
+    # ----------------------------------------------------
+    # TAB 4: COMMUNITY CRISIS RESOURCES
+    # ----------------------------------------------------
+    with res_tabs[3]:
+        st.subheader("🏛️ Verified Community Crisis & Relief Directories")
+        st.write("Quick directory of state institutions, legal assistance camps, and emergency shelters.")
+
+        res1, res2 = st.columns(2)
+        with res1:
+            with st.container(border=True):
+                st.markdown("#### ⚖️ District Legal Services Authority (DLSA)")
+                st.write("Free legal representation, legal advice, and victim compensation facilitation for eligible survivors.")
+                st.caption("Available in every district court complex across India.")
+                st.markdown("[National Legal Services Authority (NALSA)](https://nalsa.gov.in/)")
+
+            with st.container(border=True):
+                st.markdown("#### 🏥 One Stop Centres (OSC / Sakhi)")
+                st.write("Integrated support under one roof: police assistance, medical aid, psycho-social counselling, and temporary shelter.")
+                st.caption("Operational across 700+ districts in India. Dial 181 for OSC helpline.")
+
+        with res2:
+            with st.container(border=True):
+                st.markdown("#### 🌧️ National Disaster Management Authority (NDMA)")
+                st.write("Emergency relief, flood/cyclone warning bulletins, and local shelter contacts.")
+                st.caption("Helpline: 1078 / 011-26701728")
+                st.markdown("[NDMA Official Portal](https://ndma.gov.in/)")
+
+            with st.container(border=True):
+                st.markdown("#### 🫂 Vandrevala Foundation Helpline")
+                st.write("24/7 Free multi-lingual mental health counselling and psychological crisis intervention.")
+                st.caption("Call: +91 9999 666 555")
 
 
 # ============================================================
 # PRIVACY & SAFETY
 # ============================================================
+
 
 elif page == "Privacy & Safety":
     st.title("🔐 Privacy, Safeguarding & Responsible AI")
