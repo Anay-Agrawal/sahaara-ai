@@ -18,6 +18,14 @@ st.set_page_config(
 # Custom CSS for dark theme matching the design
 st.markdown("""
 <style>
+    /* Allow metric values to wrap and reduce font size slightly for long text */
+    div[data-testid="stMetricValue"] > div {
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        line-height: 1.2 !important;
+        font-size: 1.6rem !important;
+    }
+
 /* Global App Background */
 .stApp {
     background-color: #0E0F15;
@@ -462,7 +470,7 @@ elif page == "AI Assessment":
         with col_m3:
             st.metric("Triage Priority", res['level'])
         with col_m4:
-            st.metric("Journey Context", res['stage'] if len(res['stage']) < 22 else res['stage'][:20] + "...")
+            st.metric("Journey Context", res['stage'])
 
         # Visual Progress Bar
         st.caption("Distress Spectrum Indicator:")
