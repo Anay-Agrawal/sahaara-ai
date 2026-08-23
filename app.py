@@ -423,44 +423,7 @@ if page == "Home":
     st.markdown("<br><h3 style='font-size: 20px; font-weight: 600; margin-bottom: 24px;'>How It Works</h3>", unsafe_allow_html=True)
 
     # Simplified representation of the flowchart to match look and feel
-    st.markdown("""<div style="position: relative; height: 350px; background-color: #12131A; border-radius: 12px; border: 1px solid #1E1F2A; font-family: sans-serif;">
-        <!-- Horizontal Lines -->
-        <div style="position: absolute; top: 60px; left: 20%; width: 60%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
-        <div style="position: absolute; top: 160px; left: 50%; width: 30%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
-        <div style="position: absolute; top: 260px; left: 20%; width: 30%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
-        <!-- Vertical Lines -->
-        <div style="position: absolute; top: 60px; left: 80%; width: 2px; height: 100px; background-color: #2762A8; z-index: 1;"></div>
-        <div style="position: absolute; top: 160px; left: 50%; width: 2px; height: 100px; background-color: #2762A8; z-index: 1;"></div>
-        <!-- Nodes -->
-        <div style="position: absolute; top: 30px; left: 20%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;">
-            <div style="font-size: 24px; margin-bottom: 8px;">👤</div>
-            <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">User<br>Check-in</div>
-        </div>
-        <div style="position: absolute; top: 30px; left: 50%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;">
-            <div style="font-size: 24px; margin-bottom: 8px;">🧠</div>
-            <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">AI-assisted<br>Assessment</div>
-        </div>
-        <div style="position: absolute; top: 30px; left: 80%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;">
-            <div style="font-size: 24px; margin-bottom: 8px;">🎯</div>
-            <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Dynamic<br>Distress Score</div>
-        </div>
-        <div style="position: absolute; top: 130px; left: 50%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;">
-            <div style="font-size: 24px; margin-bottom: 8px;">📈</div>
-            <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Trend<br>Detection</div>
-        </div>
-        <div style="position: absolute; top: 130px; left: 80%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;">
-            <div style="font-size: 24px; margin-bottom: 8px;">⚠️</div>
-            <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Early<br>Warning</div>
-        </div>
-        <div style="position: absolute; top: 230px; left: 20%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;">
-            <div style="font-size: 24px; margin-bottom: 8px;">👥</div>
-            <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Human<br>Professional<br>Review</div>
-        </div>
-        <div style="position: absolute; top: 230px; left: 50%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;">
-            <div style="font-size: 24px; margin-bottom: 8px;">📞</div>
-            <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Support &<br>Follow-up</div>
-        </div>
-    </div>""", unsafe_allow_html=True)
+    st.markdown("""<div style="position: relative; height: 350px; background-color: #12131A; border-radius: 12px; border: 1px solid #1E1F2A; font-family: sans-serif;"> <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"> <defs> <marker id="arrow-right" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"> <path d="M 0 0 L 10 5 L 0 10 z" fill="#2762A8" /> </marker> <marker id="arrow-left" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto"> <path d="M 10 0 L 0 5 L 10 10 z" fill="#2762A8" /> </marker> <marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="8" markerWidth="6" markerHeight="6" orient="auto"> <path d="M 0 0 L 10 0 L 5 10 z" fill="#2762A8" /> </marker> </defs> <line x1="28%" y1="60" x2="42%" y2="60" stroke="#2762A8" stroke-width="2" marker-end="url(#arrow-right)" /> <line x1="58%" y1="60" x2="72%" y2="60" stroke="#2762A8" stroke-width="2" marker-end="url(#arrow-right)" /> <line x1="80%" y1="90" x2="80%" y2="120" stroke="#2762A8" stroke-width="2" marker-end="url(#arrow-down)" /> <line x1="72%" y1="160" x2="58%" y2="160" stroke="#2762A8" stroke-width="2" marker-end="url(#arrow-left)" /> <line x1="50%" y1="190" x2="50%" y2="210" stroke="#2762A8" stroke-width="2" /> <line x1="50%" y1="210" x2="20%" y2="210" stroke="#2762A8" stroke-width="2" /> <line x1="20%" y1="210" x2="20%" y2="225" stroke="#2762A8" stroke-width="2" marker-end="url(#arrow-down)" /> <line x1="28%" y1="260" x2="42%" y2="260" stroke="#2762A8" stroke-width="2" marker-end="url(#arrow-right)" /> </svg> <div style="position: absolute; top: 30px; left: 20%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;"> <div style="font-size: 24px; margin-bottom: 8px;">👤</div> <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">User<br>Check-in</div> </div> <div style="position: absolute; top: 30px; left: 50%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;"> <div style="font-size: 24px; margin-bottom: 8px;">🧠</div> <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">AI-assisted<br>Assessment</div> </div> <div style="position: absolute; top: 30px; left: 80%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;"> <div style="font-size: 24px; margin-bottom: 8px;">🎯</div> <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Dynamic<br>Distress Score</div> </div> <div style="position: absolute; top: 130px; left: 50%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;"> <div style="font-size: 24px; margin-bottom: 8px;">📈</div> <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Trend<br>Detection</div> </div> <div style="position: absolute; top: 130px; left: 80%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;"> <div style="font-size: 24px; margin-bottom: 8px;">⚠️</div> <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Early<br>Warning</div> </div> <div style="position: absolute; top: 230px; left: 20%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;"> <div style="font-size: 24px; margin-bottom: 8px;">👥</div> <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Human<br>Professional<br>Review</div> </div> <div style="position: absolute; top: 230px; left: 50%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;"> <div style="font-size: 24px; margin-bottom: 8px;">📞</div> <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Support &<br>Follow-up</div> </div></div>""", unsafe_allow_html=True)
 elif page == "AI Assessment":
 
     # --- RESULT VIEW IF ALREADY ANALYZED ---
