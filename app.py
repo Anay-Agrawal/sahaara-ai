@@ -1454,16 +1454,17 @@ elif page == "Resilience Support":
             if severity in ["Moderate impact", "High / Displaced"]:
                 st.markdown("### 📡 Government Agency Dispatch (Simulation)")
                 st.success("An automated data packet has been prepared for transmission to local emergency management agencies to assist affected individuals.")
-                with st.expander("View Dispatched API Payload", expanded=False):
-                    st.json({
-                        "dispatch_id": f"GOV-EMG-{datetime.now().strftime('%Y%m%d%H%M%S')}",
-                        "routing": "National_Disaster_Management_API",
-                        "event_type": event,
-                        "impact_level": severity,
-                        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                        "transmission_status": "SUCCESS (Simulated)",
-                        "safety_warning": "PROTOTYPE ONLY: No real data is transmitted. Always contact emergency services directly in a crisis."
-                    })
+                st.markdown("""
+                <div style='background-color: #1E1F2A; border-left: 4px solid #F59E0B; padding: 15px; border-radius: 8px; margin-bottom: 15px;'>
+                    <h4 style='margin-top: 0; color: #FCD34D;'>🚨 Direct Emergency Contacts</h4>
+                    <p style='margin-bottom: 8px; color: #E2E8F0; font-size: 0.9rem;'>While this prototype simulates agency dispatch, please contact authorities directly in a real crisis:</p>
+                    <div style='font-size: 1.05rem; line-height: 1.6;'>
+                        📞 National Emergency Number: <b style='color: #60A5FA;'>112</b><br>
+                        📞 Disaster Management (NDMA/NDRF): <b style='color: #60A5FA;'>1078</b><br>
+                        📞 Ambulance Services: <b style='color: #60A5FA;'>108</b>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
 
             st.markdown(f"### 🛡️ Resilience & Coping Strategies for {severity}")
             
