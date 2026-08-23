@@ -428,11 +428,9 @@ if page == "Home":
         <div style="position: absolute; top: 60px; left: 20%; width: 60%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
         <div style="position: absolute; top: 160px; left: 50%; width: 30%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
         <div style="position: absolute; top: 260px; left: 20%; width: 30%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
-        
         <!-- Vertical Lines -->
         <div style="position: absolute; top: 60px; left: 80%; width: 2px; height: 100px; background-color: #2762A8; z-index: 1;"></div>
         <div style="position: absolute; top: 160px; left: 50%; width: 2px; height: 100px; background-color: #2762A8; z-index: 1;"></div>
-        
         <!-- Nodes -->
         <div style="position: absolute; top: 30px; left: 20%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;">
             <div style="font-size: 24px; margin-bottom: 8px;">👤</div>
@@ -446,7 +444,6 @@ if page == "Home":
             <div style="font-size: 24px; margin-bottom: 8px;">🎯</div>
             <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Dynamic<br>Distress Score</div>
         </div>
-        
         <div style="position: absolute; top: 130px; left: 50%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;">
             <div style="font-size: 24px; margin-bottom: 8px;">📈</div>
             <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Trend<br>Detection</div>
@@ -455,7 +452,6 @@ if page == "Home":
             <div style="font-size: 24px; margin-bottom: 8px;">⚠️</div>
             <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Early<br>Warning</div>
         </div>
-        
         <div style="position: absolute; top: 230px; left: 20%; width: 120px; margin-left: -60px; background-color: #12131A; z-index: 2; text-align: center;">
             <div style="font-size: 24px; margin-bottom: 8px;">👥</div>
             <div style="font-size: 12px; color: #CBD5E1; line-height: 1.3;">Human<br>Professional<br>Review</div>
