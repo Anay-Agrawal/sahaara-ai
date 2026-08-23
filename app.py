@@ -163,9 +163,18 @@ if "step_error" not in st.session_state:
 if "assessment_form" not in st.session_state:
     st.session_state.assessment_form = {
         "consent": False,
-        "sleep": None, "appetite": None, "energy": None,
-        "mood": None, "anxiety": None, "focus": None,
-        "isolation": None, "support": None, "hope": None
+        "mood": None,
+        "anxiety": None,
+        "stress": None,
+        "sleep": None,
+        "concentration": None,
+        "helplessness": None,
+        "isolation": None,
+        "support": None,
+        "safety_concern": None,
+        "case_involved": None,
+        "stage": None,
+        "user_text": ""
     }
 
 # ============================================================
