@@ -1312,6 +1312,113 @@ elif page == "Resilience Support":
     st.title("🌍 Environmental & Crisis Stressor Logger")
     st.write("Account for external contextual factors (e.g. natural disasters, heatwaves, displacement) that compound personal distress.")
 
+    # Dictionary mapping events and severity to specific coping mechanisms
+    resilience_strategies = {
+        "Severe Flooding / Relocation": {
+            "Low impact": [
+                "**Stay Informed:** Monitor local weather updates and official flood warnings.",
+                "**Prep Your Kit:** Review your emergency kit and ensure important documents are stored in waterproof containers.",
+                "**Boundaries:** Limit exposure to stressful news cycles; stick to official updates twice a day."
+            ],
+            "Moderate impact": [
+                "**Routine:** Establish a daily routine in your temporary setup to maintain a sense of normalcy.",
+                "**Community:** Connect with community support groups or local relief organizations.",
+                "**Grounding:** Practice the 5-4-3-2-1 sensory technique when feeling overwhelmed by property damage or disruption."
+            ],
+            "High / Displaced": [
+                "**Safety First:** Prioritize physical safety, clean water, and shelter above all else.",
+                "**Pacing:** Focus on taking things one hour at a time. Do not force yourself to process the trauma immediately.",
+                "**Aid:** Register with official displacement camps or NGOs to access psychosocial first aid.",
+                "**Distancing:** Use psychological distancing: remind yourself 'I am safe right now' when panic arises."
+            ]
+        },
+        "Extreme Heatwave Event": {
+            "Low impact": [
+                "**Hydration:** Drink water consistently and avoid strenuous outdoor activities during peak sun hours.",
+                "**Cooling Breath:** Practice cooling breath techniques (e.g., Sitali breath) to regulate body temperature and anxiety.",
+                "**Check-ins:** Check in on vulnerable neighbors or family members."
+            ],
+            "Moderate impact": [
+                "**Biological Link:** Heat can significantly increase irritability and anxiety. Acknowledge this biological link rather than blaming yourself.",
+                "**Sanctuary:** Create a cool sanctuary space in your home if possible, focusing on airflow.",
+                "**Lower Expectations:** Pace your daily tasks. Lower your expectations for productivity during extreme heat."
+            ],
+            "High / Displaced": [
+                "**Relocate:** Move to community cooling centers immediately if your living situation becomes dangerously hot.",
+                "**Symptom Check:** Watch for physical signs of heat exhaustion which mimic panic attacks (racing heart, dizziness).",
+                "**Conserve Energy:** Conserve physical and mental energy. Rest completely."
+            ]
+        },
+        "Hazardous Air Quality / Pollution": {
+            "Low impact": [
+                "**Monitor AQI:** Keep windows closed and monitor local air quality index (AQI) apps.",
+                "**Protection:** Wear appropriate N95/KN95 masks if you must go outside.",
+                "**Adapt Routine:** Do light indoor stretching instead of outdoor cardio to maintain mental health."
+            ],
+            "Moderate impact": [
+                "**Combat Cabin Fever:** Being trapped indoors can cause 'cabin fever'. Counteract this by creating structured indoor activities.",
+                "**Air Quality:** Use HEPA air purifiers if available. The white noise can also aid focus and relaxation.",
+                "**Virtual Connection:** Stay connected virtually with friends to mitigate the isolation of staying indoors."
+            ],
+            "High / Displaced": [
+                "**Medical Care:** If respiratory distress occurs, seek medical attention rather than assuming it is an anxiety attack.",
+                "**Relocation:** Consider temporary relocation if the air quality remains hazardous for an extended period and you are vulnerable.",
+                "**Mental Escape:** Practice guided imagery meditation to mentally escape the confined indoor environment."
+            ]
+        },
+        "Civil / Community Disruption": {
+            "Low impact": [
+                "**Media Diet:** Limit social media scrolling, which can rapidly amplify fear and outrage.",
+                "**Locus of Control:** Focus on your immediate circle of control: your home, your family, your daily routine.",
+                "**Validation:** Validate your feelings of uncertainty without letting them dictate your actions."
+            ],
+            "Moderate impact": [
+                "**Communication:** Maintain regular communication with trusted friends and family to ensure mutual safety.",
+                "**Safe Zones:** Identify safe zones and avoid engaging in high-conflict areas or intense online debates.",
+                "**Action:** Channel stress into community care or organizing within safe, trusted networks."
+            ],
+            "High / Displaced": [
+                "**Evacuation:** Prioritize physical safety and strictly follow official evacuation or curfew orders.",
+                "**Present Focus:** Focus entirely on the present moment. Trauma responses (numbness, hyperarousal) are normal during active disruptions.",
+                "**First Aid:** Connect with crisis counselors or NGOs operating in the area for psychological first aid."
+            ]
+        },
+        "Financial Crisis / Crop Loss": {
+            "Low impact": [
+                "**Objectivity:** Acknowledge the stressor. Write down a clear, objective list of financial impacts without catastrophizing.",
+                "**Triage:** Identify what immediate expenses can be paused or reduced.",
+                "**Self-Worth:** Remind yourself frequently that your inherent self-worth is not tied to your financial or agricultural output."
+            ],
+            "Moderate impact": [
+                "**Active Aid:** Seek out government subsidies, crop insurance, or community aid programs actively.",
+                "**Micro-planning:** Break down financial planning into small, 1-week increments rather than projecting years into the unknown future.",
+                "**Share the Burden:** Communicate openly with family members about the situation to reduce the burden of carrying it alone."
+            ],
+            "High / Displaced": [
+                "**Survival Needs:** Focus purely on immediate survival needs: food banks, local shelters, or community kitchens.",
+                "**Community Support:** Do not isolate yourself out of shame. Reaching out to community networks is a vital survival mechanism.",
+                "**Specialized Counsel:** Contact financial counselors, agricultural extension officers, or NGOs who specialize in crisis recovery."
+            ]
+        },
+        "Other Acute External Stressor": {
+            "Low impact": [
+                "**Baselines:** Maintain your baseline self-care routines (sleep, nutrition, hydration).",
+                "**Information Diet:** Limit exposure to news and social media surrounding the stressor.",
+                "**Micro-control:** Identify just one small thing you can control today."
+            ],
+            "Moderate impact": [
+                "**Cognitive Grace:** Acknowledge that your cognitive load is high. It is completely normal to be forgetful or irritable.",
+                "**Delegation:** Lean heavily on your support network and explicitly ask for help with daily tasks.",
+                "**Nervous System Reset:** Practice box breathing (inhale 4s, hold 4s, exhale 4s, hold 4s) to reset your nervous system."
+            ],
+            "High / Displaced": [
+                "**Survival Mode:** Recognize your brain is in survival mode. Do not expect normal emotional processing right now.",
+                "**Physiology First:** Secure basic physiological and safety needs before attempting any deep emotional work.",
+                "**Intervention:** Seek out professional crisis intervention and community aid as soon as safely possible."
+            ]
+        }
+    }
+
     event = st.selectbox(
         "Select external contextual event:",
         [
@@ -1325,21 +1432,36 @@ elif page == "Resilience Support":
         ]
     )
 
-    severity = st.radio(
-        "Impact intensity on daily life:",
-        ["Low impact", "Moderate impact", "High / Displaced"],
-        horizontal=True
-    )
+    if event != "No major event":
+        severity = st.radio(
+            "Impact intensity on daily life:",
+            ["Low impact", "Moderate impact", "High / Displaced"],
+            horizontal=True
+        )
 
-    if st.button("Evaluate Contextual Impact", type="primary"):
-        if event == "No major event":
-            st.success("✅ No external crisis factor reported.")
+        st.markdown("---")
+        
+        # Display contextual warning/info box based on severity
+        if severity == "Low impact":
+            st.info(f"ℹ️ **Context Registered:** {event} (Low Impact). Incorporating basic coping mechanisms.")
+        elif severity == "Moderate impact":
+            st.warning(f"⚠️ **Context Registered:** {event} (Moderate Impact). Elevated resilience support recommended.")
         else:
-            st.warning(f"⚠️ Context registered: **{event}** ({severity})")
-            if "High" in severity:
-                st.error("🚨 Critical environmental stress factor. Prioritize immediate shelter, hydration, and safety needs before psychosocial check-ins.")
-            else:
-                st.info("ℹ️ External stress registered. Incorporate coping and community relief resources.")
+            st.error(f"🚨 **Critical Context Registered:** {event} (High / Displaced). Prioritize immediate safety, shelter, and hydration needs.")
+
+        st.markdown(f"### 🛡️ Resilience & Coping Strategies for {severity}")
+        
+        tips = resilience_strategies.get(event, {}).get(severity, [])
+        
+        for tip in tips:
+            st.markdown(f"<div style='background-color: #1E1F2A; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #3B82F6;'>{tip}</div>", unsafe_allow_html=True)
+            
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("Log Stressor to Case Profile", type="primary"):
+            st.success("✅ Stressor logged successfully. Your AI assessments will now take this context into account.")
+
+    else:
+        st.success("✅ No external crisis factor reported. You can log environmental stressors here if circumstances change.")
 
 
 # ============================================================
