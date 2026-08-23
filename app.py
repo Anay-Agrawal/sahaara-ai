@@ -1243,7 +1243,8 @@ elif page == "Professional Connect":
                 "Clinical Psychologist",
                 "Psychologist / Counsellor",
                 "Trauma-focused Therapist"
-            ]
+            ],
+            index=None
         )
     
         mode = st.selectbox(
@@ -1252,85 +1253,89 @@ elif page == "Professional Connect":
                 "Online Consultation",
                 "In-person Consultation",
                 "Either"
-            ]
+            ],
+            index=None
         )
-    
-        st.markdown(f"### 🔎 {professional_type}")
-    
-        st.write(f"**Consultation mode:** {mode}")
-    
-        st.markdown(
-            "Choose a real healthcare provider to search for available "
-            "mental-health professionals."
-        )
-    
-        st.divider()
-    
-        # --------------------------------------------------------
-        # PRIVATE PROVIDER OPTIONS
-        # --------------------------------------------------------
-    
-        if professional_type == "Psychiatrist":
-    
-            st.markdown("#### 🧠 Psychiatrist Consultation")
-    
-            st.write(
-                "Find psychiatrists for psychiatric assessment and "
-                "medical consultation."
+
+        if not professional_type or not mode:
+            st.info("👆 Please select both a professional type and consultation mode to view available providers.")
+        else:
+            st.markdown(f"### 🔎 {professional_type}")
+        
+            st.write(f"**Consultation mode:** {mode}")
+        
+            st.markdown(
+                "Choose a real healthcare provider to search for available "
+                "mental-health professionals."
             )
-    
-            st.link_button(
-                "🔎 Find Psychiatrists on Practo",
-                "https://www.practo.com/consult/online-psychiatrist-consultation"
+        
+            st.divider()
+        
+            # --------------------------------------------------------
+            # PRIVATE PROVIDER OPTIONS
+            # --------------------------------------------------------
+        
+            if professional_type == "Psychiatrist":
+        
+                st.markdown("#### 🧠 Psychiatrist Consultation")
+        
+                st.write(
+                    "Find psychiatrists for psychiatric assessment and "
+                    "medical consultation."
+                )
+        
+                st.link_button(
+                    "🔎 Find Psychiatrists on Practo",
+                    "https://www.practo.com/consult/online-psychiatrist-consultation"
+                )
+        
+            elif professional_type == "Clinical Psychologist":
+        
+                st.markdown("#### 🧠 Clinical Psychologist")
+        
+                st.write(
+                    "Search for clinical psychologists and mental-health "
+                    "professionals for assessment and psychological support."
+                )
+        
+                st.link_button(
+                    "🔎 Find Clinical Psychologists on Practo",
+                    "https://www.practo.com/consult"
+                )
+        
+            elif professional_type == "Psychologist / Counsellor":
+        
+                st.markdown("#### 💬 Counselling / Psychological Support")
+        
+                st.write(
+                    "Search for psychologists and counsellors for "
+                    "professional emotional and psychological support."
+                )
+        
+                st.link_button(
+                    "🔎 Find Counsellors on Practo",
+                    "https://www.practo.com/consult"
+                )
+        
+            elif professional_type == "Trauma-focused Therapist":
+        
+                st.markdown("#### 🧠 Trauma-focused Therapy")
+        
+                st.write(
+                    "Find mental-health professionals who may provide "
+                    "trauma-focused psychological support."
+                )
+        
+                st.link_button(
+                    "🔎 Find Professionals on Practo",
+                    "https://www.practo.com/consult"
+                )
+        
+            st.caption(
+                "Sahaara AI does not create fictional doctors, ratings, fees, "
+                "availability or appointment confirmations. You will complete "
+                "the consultation directly through the selected provider."
             )
-    
-        elif professional_type == "Clinical Psychologist":
-    
-            st.markdown("#### 🧠 Clinical Psychologist")
-    
-            st.write(
-                "Search for clinical psychologists and mental-health "
-                "professionals for assessment and psychological support."
-            )
-    
-            st.link_button(
-                "🔎 Find Clinical Psychologists on Practo",
-                "https://www.practo.com/consult"
-            )
-    
-        elif professional_type == "Psychologist / Counsellor":
-    
-            st.markdown("#### 💬 Counselling / Psychological Support")
-    
-            st.write(
-                "Search for psychologists and counsellors for "
-                "professional emotional and psychological support."
-            )
-    
-            st.link_button(
-                "🔎 Find Counsellors on Practo",
-                "https://www.practo.com/consult"
-            )
-    
-        elif professional_type == "Trauma-focused Therapist":
-    
-            st.markdown("#### 🧠 Trauma-focused Therapy")
-    
-            st.write(
-                "Find mental-health professionals who may provide "
-                "trauma-focused psychological support."
-            )
-    
-            st.link_button(
-                "🔎 Find Professionals on Practo",
-                "https://www.practo.com/consult"
-            )
-    
-        st.caption(
-            "Sahaara AI does not create fictional doctors, ratings, fees, "
-            "availability or appointment confirmations. You will complete "
-            "the consultation directly through the selected provider."
-        )
 
     # --------------------------------------------------------
     # TRUSTED CONTACT
