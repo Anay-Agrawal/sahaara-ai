@@ -1450,6 +1450,20 @@ elif page == "Resilience Support":
                 st.warning(f"⚠️ **Context Registered:** {event} (Moderate Impact). Elevated resilience support recommended.")
             else:
                 st.error(f"🚨 **Critical Context Registered:** {event} (High / Displaced). Prioritize immediate safety, shelter, and hydration needs.")
+                
+            if severity in ["Moderate impact", "High / Displaced"]:
+                st.markdown("### 📡 Government Agency Dispatch (Simulation)")
+                st.success("An automated data packet has been prepared for transmission to local emergency management agencies to assist affected individuals.")
+                with st.expander("View Dispatched API Payload", expanded=False):
+                    st.json({
+                        "dispatch_id": f"GOV-EMG-{datetime.now().strftime('%Y%m%d%H%M%S')}",
+                        "routing": "National_Disaster_Management_API",
+                        "event_type": event,
+                        "impact_level": severity,
+                        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                        "transmission_status": "SUCCESS (Simulated)",
+                        "safety_warning": "PROTOTYPE ONLY: No real data is transmitted. Always contact emergency services directly in a crisis."
+                    })
 
             st.markdown(f"### 🛡️ Resilience & Coping Strategies for {severity}")
             
