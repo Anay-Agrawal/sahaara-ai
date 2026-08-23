@@ -340,11 +340,11 @@ with st.sidebar:
         ],
         icons=[
             "house", 
-            "brain", 
+            "activity", 
             "graph-up", 
-            "bezier2", 
+            "signpost-split", 
             "people", 
-            "layout-text-window", 
+            "window-sidebar", 
             "shield", 
             "lock"
         ],
