@@ -154,6 +154,19 @@ if "assessment_history" not in st.session_state:
     st.session_state.assessment_history = []
 if "nav_page" not in st.session_state:
     st.session_state.nav_page = "🏠 Home"
+if "latest_assessment_result" not in st.session_state:
+    st.session_state.latest_assessment_result = None
+if "assessment_step" not in st.session_state:
+    st.session_state.assessment_step = 1
+if "step_error" not in st.session_state:
+    st.session_state.step_error = None
+if "assessment_form" not in st.session_state:
+    st.session_state.assessment_form = {
+        "consent": False,
+        "sleep": None, "appetite": None, "energy": None,
+        "mood": None, "anxiety": None, "focus": None,
+        "isolation": None, "support": None, "hope": None
+    }
 
 # ============================================================
 # SIDEBAR
