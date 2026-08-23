@@ -334,7 +334,6 @@ with st.sidebar:
             "Wellbeing Trend", 
             "Case Journey", 
             "Professional Connect", 
-            "Counsellor Dashboard", 
             "Resilience Support", 
             "Privacy & Safety"
         ],
@@ -344,7 +343,6 @@ with st.sidebar:
             "graph-up", 
             "signpost-split", 
             "people", 
-            "window-sidebar", 
             "shield", 
             "lock"
         ],
@@ -1362,104 +1360,6 @@ elif page == "Professional Connect":
             )
         else:
             st.warning("Please enter a valid contact name.")
-
-# ============================================================
-# COUNSELLOR DASHBOARD
-# ============================================================
-
-elif page == "Counsellor Dashboard":
-    st.title("📊 Authorized Clinical Review Dashboard")
-    st.caption("Confidential decision-support overview for designated mental health officers and caseworkers.")
-
-    history = st.session_state.assessment_history
-
-    if not history:
-        st.info("No assessment records found in the current session. Complete an assessment to generate analytics.")
-    else:
-        df = pd.DataFrame(history)
-        # Create a unique, shorter date string for straight labels (and guarantee next unit)
-        display_dates = []
-        for i, row in df.iterrows():
-            try:
-                # Convert to shorter format: 'MM-DD HH:MM'
-                dt = pd.to_datetime(row['date'])
-                # If there are duplicates in the exact same minute, the sequence number ensures uniqueness
-                d_str = dt.strftime("%m-%d %H:%M")
-            except:
-                d_str = str(row['date'])
-            display_dates.append(f"{d_str} (#{i+1})")
-        df["display_date"] = display_dates
-        df["score"] = pd.to_numeric(df["score"], errors="coerce")
-        df = df.dropna(subset=["score"])
-
-        latest_score = int(df.iloc[-1]["score"])
-        high_count = len(df[df["level"] == "HIGH"])
-        moderate_count = len(df[df["level"] == "MODERATE"])
-        low_count = len(df[df["level"] == "LOW"])
-
-        # Top Metric Cards
-        col1, col2, col3, col4 = st.columns(4)
-        with col1:
-            st.metric("Total Assessments", len(df))
-        with col2:
-            st.metric("🔴 High Priority", high_count)
-        with col3:
-            st.metric("🟡 Moderate Watch", moderate_count)
-        with col4:
-            st.metric("Latest Score", f"{latest_score}/100")
-
-        st.divider()
-
-        # Score Trend
-        st.subheader("📈 Case Distress Trajectory (Scale 0 - 100)")
-        df["Check-in"] = range(1, len(df) + 1)
-
-        counsellor_base = alt.Chart(df).encode(
-            x=alt.X("Check-in:O", title="Check-in Number"),
-            y=alt.Y(
-                "score:Q",
-                title="Distress Score (0 - 100)",
-                scale=alt.Scale(domain=[0, 100], clamp=True),
-                axis=alt.Axis(values=[0, 20, 40, 60, 80, 100])
-            ),
-            tooltip=[
-                alt.Tooltip("Check-in:O", title="Check-in #"),
-                alt.Tooltip("date:N", title="Date"),
-                alt.Tooltip("score:Q", title="Distress Score"),
-                alt.Tooltip("level:N", title="Risk Level")
-            ]
-        )
-
-        c_line = counsellor_base.mark_line(color="#dc2626", strokeWidth=3, interpolate="monotone")
-        c_points = counsellor_base.mark_circle(size=75, color="#b91c1c")
-
-        c_rule_low = alt.Chart(pd.DataFrame({"y": [35]})).mark_rule(color="#10b981", strokeDash=[4, 4], opacity=0.7).encode(y="y:Q")
-        c_rule_high = alt.Chart(pd.DataFrame({"y": [65]})).mark_rule(color="#ef4444", strokeDash=[4, 4], opacity=0.7).encode(y="y:Q")
-
-        c_chart = (c_line + c_points + c_rule_low + c_rule_high).properties(height=340)
-        st.altair_chart(c_chart, use_container_width=True)
-
-        # Current Status Callout
-        latest_level = df.iloc[-1]["level"]
-        st.subheader("🚦 Triage Recommendation")
-        if latest_level == "HIGH":
-            st.error("🔴 **HIGH DISTRESS PRIORITY** — Recommend immediate clinical outreach and safety review.")
-        elif latest_level == "MODERATE":
-            st.warning("🟡 **MODERATE CONCERN** — Schedule follow-up check-in within 48-72 hours.")
-        else:
-            st.success("🟢 **LOW CONCERN** — Continue periodic monitoring as part of routine care.")
-
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.subheader("📋 Detailed Triage Log")
-        st.dataframe(
-            df[["Check-in", "date", "score", "level", "stage"]],
-            use_container_width=True
-        )
-
-
-# ============================================================
-# RESILIENCE SUPPORT
-# ============================================================
 
 elif page == "Resilience Support":
     st.title("🌍 Environmental & Crisis Stressor Logger")
