@@ -1225,14 +1225,17 @@ elif page == "Professional Connect":
 
     st.divider()
 
-    # --------------------------------------------------------
-    # PRIVATE PROFESSIONAL SUPPORT
-    # --------------------------------------------------------
-    st.subheader("👩‍⚕️ Private Professional Support")
-    st.caption(
-        "For users who want a private consultation with a qualified "
-        "mental-health professional."
-    )
+   # --------------------------------------------------------
+# PRIVATE PROFESSIONAL SUPPORT
+# --------------------------------------------------------
+st.subheader("👩‍⚕️ Private Professional Support")
+
+st.caption(
+    "For users who want a private consultation with a qualified "
+    "mental-health professional."
+)
+
+with st.container(border=True):
 
     professional_type = st.selectbox(
         "What type of professional are you looking for?",
@@ -1252,7 +1255,7 @@ elif page == "Professional Connect":
             "Either"
         ]
     )
-with st.container(border=True):
+
     st.markdown(f"### 🔎 {professional_type}")
 
     st.write(f"**Consultation mode:** {mode}")
@@ -1269,7 +1272,9 @@ with st.container(border=True):
     # --------------------------------------------------------
 
     if professional_type == "Psychiatrist":
+
         st.markdown("#### 🧠 Psychiatrist Consultation")
+
         st.write(
             "Find psychiatrists for psychiatric assessment and "
             "medical consultation."
@@ -1281,22 +1286,40 @@ with st.container(border=True):
         )
 
     elif professional_type == "Clinical Psychologist":
+
         st.markdown("#### 🧠 Clinical Psychologist")
+
         st.write(
-            "Search for psychologists and mental-health professionals "
-            "for assessment and psychological support."
+            "Search for clinical psychologists and mental-health "
+            "professionals for assessment and psychological support."
         )
 
         st.link_button(
-            "🔎 Find Psychologists on Practo",
+            "🔎 Find Clinical Psychologists on Practo",
             "https://www.practo.com/consult"
         )
 
-    else:
+    elif professional_type == "Psychologist / Counsellor":
+
         st.markdown("#### 💬 Counselling / Psychological Support")
+
         st.write(
-            "Search for available psychology and counselling services "
-            "through a real healthcare provider directory."
+            "Search for psychologists and counsellors for "
+            "professional emotional and psychological support."
+        )
+
+        st.link_button(
+            "🔎 Find Counsellors on Practo",
+            "https://www.practo.com/consult"
+        )
+
+    elif professional_type == "Trauma-focused Therapist":
+
+        st.markdown("#### 🧠 Trauma-focused Therapy")
+
+        st.write(
+            "Find mental-health professionals who may provide "
+            "trauma-focused psychological support."
         )
 
         st.link_button(
@@ -1305,7 +1328,7 @@ with st.container(border=True):
         )
 
     st.caption(
-        "Sahara AI does not create fictional doctors, ratings, fees, "
+        "Sahaara AI does not create fictional doctors, ratings, fees, "
         "availability or appointment confirmations. You will complete "
         "the consultation directly through the selected provider."
     )
