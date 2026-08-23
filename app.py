@@ -1203,135 +1203,136 @@ elif page == "Professional Connect":
             st.metric("Alternate", "1800-89-14416")
 
         st.info("📞 Call 14416 for Tele-MANAS support.")
-
-   with st.container(border=True):
-    st.markdown("### 🏥 Ayushman Arogya Mandir")
-
-    st.write(
-        "Government primary-health facilities providing comprehensive "
-        "primary healthcare, including mental-health screening and "
-        "basic management."
-    )
-
-    st.write(
-        "Tele-consultation and referral pathways can help connect "
-        "patients with higher-level care when required."
-    )
-
-    st.link_button(
-        "🏥 Open Official Ayushman Arogya Mandir Portal",
-        "https://aam.mohfw.gov.in/"
-    )
-
-    st.divider()
-
-   # --------------------------------------------------------
-# PRIVATE PROFESSIONAL SUPPORT
-# --------------------------------------------------------
-st.subheader("👩‍⚕️ Private Professional Support")
-
-st.caption(
-    "For users who want a private consultation with a qualified "
-    "mental-health professional."
-)
-
-with st.container(border=True):
-
-    professional_type = st.selectbox(
-        "What type of professional are you looking for?",
-        [
-            "Psychiatrist",
-            "Clinical Psychologist",
-            "Psychologist / Counsellor",
-            "Trauma-focused Therapist"
-        ]
-    )
-
-    mode = st.selectbox(
-        "Preferred consultation mode",
-        [
-            "Online Consultation",
-            "In-person Consultation",
-            "Either"
-        ]
-    )
-
-    st.markdown(f"### 🔎 {professional_type}")
-
-    st.write(f"**Consultation mode:** {mode}")
-
-    st.markdown(
-        "Choose a real healthcare provider to search for available "
-        "mental-health professionals."
-    )
-
-    st.divider()
-
+    
+    with st.container(border=True):
+           
+        st.markdown("### 🏥 Ayushman Arogya Mandir")
+    
+        st.write(
+            "Government primary-health facilities providing comprehensive "
+            "primary healthcare, including mental-health screening and "
+            "basic management."
+        )
+    
+        st.write(
+            "Tele-consultation and referral pathways can help connect "
+            "patients with higher-level care when required."
+        )
+    
+        st.link_button(
+            "🏥 Open Official Ayushman Arogya Mandir Portal",
+            "https://aam.mohfw.gov.in/"
+        )
+    
+        st.divider()
+    
+       # --------------------------------------------------------
+    # PRIVATE PROFESSIONAL SUPPORT
     # --------------------------------------------------------
-    # PRIVATE PROVIDER OPTIONS
-    # --------------------------------------------------------
-
-    if professional_type == "Psychiatrist":
-
-        st.markdown("#### 🧠 Psychiatrist Consultation")
-
-        st.write(
-            "Find psychiatrists for psychiatric assessment and "
-            "medical consultation."
-        )
-
-        st.link_button(
-            "🔎 Find Psychiatrists on Practo",
-            "https://www.practo.com/consult/online-psychiatrist-consultation"
-        )
-
-    elif professional_type == "Clinical Psychologist":
-
-        st.markdown("#### 🧠 Clinical Psychologist")
-
-        st.write(
-            "Search for clinical psychologists and mental-health "
-            "professionals for assessment and psychological support."
-        )
-
-        st.link_button(
-            "🔎 Find Clinical Psychologists on Practo",
-            "https://www.practo.com/consult"
-        )
-
-    elif professional_type == "Psychologist / Counsellor":
-
-        st.markdown("#### 💬 Counselling / Psychological Support")
-
-        st.write(
-            "Search for psychologists and counsellors for "
-            "professional emotional and psychological support."
-        )
-
-        st.link_button(
-            "🔎 Find Counsellors on Practo",
-            "https://www.practo.com/consult"
-        )
-
-    elif professional_type == "Trauma-focused Therapist":
-
-        st.markdown("#### 🧠 Trauma-focused Therapy")
-
-        st.write(
-            "Find mental-health professionals who may provide "
-            "trauma-focused psychological support."
-        )
-
-        st.link_button(
-            "🔎 Find Professionals on Practo",
-            "https://www.practo.com/consult"
-        )
-
+    st.subheader("👩‍⚕️ Private Professional Support")
+    
     st.caption(
-        "Sahaara AI does not create fictional doctors, ratings, fees, "
-        "availability or appointment confirmations. You will complete "
-        "the consultation directly through the selected provider."
+        "For users who want a private consultation with a qualified "
+        "mental-health professional."
     )
+    
+    with st.container(border=True):
+    
+        professional_type = st.selectbox(
+            "What type of professional are you looking for?",
+            [
+                "Psychiatrist",
+                "Clinical Psychologist",
+                "Psychologist / Counsellor",
+                "Trauma-focused Therapist"
+            ]
+        )
+    
+        mode = st.selectbox(
+            "Preferred consultation mode",
+            [
+                "Online Consultation",
+                "In-person Consultation",
+                "Either"
+            ]
+        )
+    
+        st.markdown(f"### 🔎 {professional_type}")
+    
+        st.write(f"**Consultation mode:** {mode}")
+    
+        st.markdown(
+            "Choose a real healthcare provider to search for available "
+            "mental-health professionals."
+        )
+    
+        st.divider()
+    
+        # --------------------------------------------------------
+        # PRIVATE PROVIDER OPTIONS
+        # --------------------------------------------------------
+    
+        if professional_type == "Psychiatrist":
+    
+            st.markdown("#### 🧠 Psychiatrist Consultation")
+    
+            st.write(
+                "Find psychiatrists for psychiatric assessment and "
+                "medical consultation."
+            )
+    
+            st.link_button(
+                "🔎 Find Psychiatrists on Practo",
+                "https://www.practo.com/consult/online-psychiatrist-consultation"
+            )
+    
+        elif professional_type == "Clinical Psychologist":
+    
+            st.markdown("#### 🧠 Clinical Psychologist")
+    
+            st.write(
+                "Search for clinical psychologists and mental-health "
+                "professionals for assessment and psychological support."
+            )
+    
+            st.link_button(
+                "🔎 Find Clinical Psychologists on Practo",
+                "https://www.practo.com/consult"
+            )
+    
+        elif professional_type == "Psychologist / Counsellor":
+    
+            st.markdown("#### 💬 Counselling / Psychological Support")
+    
+            st.write(
+                "Search for psychologists and counsellors for "
+                "professional emotional and psychological support."
+            )
+    
+            st.link_button(
+                "🔎 Find Counsellors on Practo",
+                "https://www.practo.com/consult"
+            )
+    
+        elif professional_type == "Trauma-focused Therapist":
+    
+            st.markdown("#### 🧠 Trauma-focused Therapy")
+    
+            st.write(
+                "Find mental-health professionals who may provide "
+                "trauma-focused psychological support."
+            )
+    
+            st.link_button(
+                "🔎 Find Professionals on Practo",
+                "https://www.practo.com/consult"
+            )
+    
+        st.caption(
+            "Sahaara AI does not create fictional doctors, ratings, fees, "
+            "availability or appointment confirmations. You will complete "
+            "the consultation directly through the selected provider."
+        )
 
     # --------------------------------------------------------
     # TRUSTED CONTACT
