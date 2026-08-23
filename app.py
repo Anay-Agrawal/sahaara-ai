@@ -1181,7 +1181,7 @@ elif page == "🛡️ Resilience Support":
 # PRIVACY & SAFETY
 # ============================================================
 
-elif page == "🔒 Privacy elif page == "🔐 Privacy & Safety": Safety":
+elif page == "🔒 Privacy & Safety":
     st.title("🔐 Privacy, Safeguarding & Responsible AI")
 
     st.markdown("""
