@@ -319,8 +319,8 @@ def intervention_plan(level, factors):
 with st.sidebar:
     st.markdown("""
         <div style="display: flex; align-items: center; margin-bottom: 20px;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E2E8F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 12px;">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E2E8F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 12px;">
+                <path d="M 20 7 L 12 2 L 4 7 L 4 10 L 20 14 L 20 17 L 12 22 L 4 17"/>
             </svg>
             <span style="font-size: 22px; font-weight: bold; color: #fff;">Sahara AI</span>
         </div>
