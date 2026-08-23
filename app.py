@@ -484,14 +484,14 @@ elif page == "AI Assessment":
         with col_f1:
             st.markdown("### 🔎 Key Focus Factors")
             if res["factors"]:
-                factor_html = "".join([f'<span class="factor-tag">⚠️ {f}</span>' for f in res["factors"]])
+                factor_html = "".join([f"<div style='margin-bottom: 10px; padding: 8px 12px; background-color: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; border-radius: 4px; color: #E2E8F0;'>⚠️ {f}</div>" for f in res["factors"]])
                 st.markdown(f"<div style='margin-bottom: 15px;'>{factor_html}</div>", unsafe_allow_html=True)
             else:
-                st.markdown('<span class="factor-tag-green">✅ No acute distress factors identified</span>', unsafe_allow_html=True)
+                st.markdown("<div style='margin-bottom: 10px; padding: 8px 12px; background-color: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; border-radius: 4px; color: #E2E8F0;'>✅ No acute distress factors identified</div>", unsafe_allow_html=True)
 
             if res.get("protective_factors"):
                 st.markdown("#### 🛡️ Protective Factors Present")
-                prot_html = "".join([f'<span class="factor-tag-green">🛡️ {pf}</span>' for pf in res["protective_factors"]])
+                prot_html = "".join([f"<div style='margin-bottom: 10px; padding: 8px 12px; background-color: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; border-radius: 4px; color: #E2E8F0;'>🛡️ {pf}</div>" for pf in res["protective_factors"]])
                 st.markdown(prot_html, unsafe_allow_html=True)
 
         with col_f2:
