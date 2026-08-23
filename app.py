@@ -1436,29 +1436,35 @@ elif page == "Resilience Support":
         severity = st.radio(
             "Impact intensity on daily life:",
             ["Low impact", "Moderate impact", "High / Displaced"],
-            horizontal=True
+            horizontal=True,
+            index=None
         )
 
-        st.markdown("---")
-        
-        # Display contextual warning/info box based on severity
-        if severity == "Low impact":
-            st.info(f"ℹ️ **Context Registered:** {event} (Low Impact). Incorporating basic coping mechanisms.")
-        elif severity == "Moderate impact":
-            st.warning(f"⚠️ **Context Registered:** {event} (Moderate Impact). Elevated resilience support recommended.")
-        else:
-            st.error(f"🚨 **Critical Context Registered:** {event} (High / Displaced). Prioritize immediate safety, shelter, and hydration needs.")
-
-        st.markdown(f"### 🛡️ Resilience & Coping Strategies for {severity}")
-        
-        tips = resilience_strategies.get(event, {}).get(severity, [])
-        
-        for tip in tips:
-            st.markdown(f"<div style='background-color: #1E1F2A; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #3B82F6;'>{tip}</div>", unsafe_allow_html=True)
+        if severity:
+            st.markdown("---")
             
-        st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("Log Stressor to Case Profile", type="primary"):
-            st.success("✅ Stressor logged successfully. Your AI assessments will now take this context into account.")
+            # Display contextual warning/info box based on severity
+            if severity == "Low impact":
+                st.info(f"ℹ️ **Context Registered:** {event} (Low Impact). Incorporating basic coping mechanisms.")
+            elif severity == "Moderate impact":
+                st.warning(f"⚠️ **Context Registered:** {event} (Moderate Impact). Elevated resilience support recommended.")
+            else:
+                st.error(f"🚨 **Critical Context Registered:** {event} (High / Displaced). Prioritize immediate safety, shelter, and hydration needs.")
+
+            st.markdown(f"### 🛡️ Resilience & Coping Strategies for {severity}")
+            
+            tips = resilience_strategies.get(event, {}).get(severity, [])
+            
+            for tip in tips:
+                import re
+                tip_formatted = re.sub(r'\*\*(.*?)\*\*', r"<span style='color: #60A5FA; font-weight: 600;'>\1</span>", tip)
+                st.markdown(f"<div style='background-color: #1E1F2A; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #3B82F6;'>{tip_formatted}</div>", unsafe_allow_html=True)
+                
+            st.markdown("<br>", unsafe_allow_html=True)
+            if st.button("Log Stressor to Case Profile", type="primary"):
+                st.success("✅ Stressor logged successfully. Your AI assessments will now take this context into account.")
+        else:
+            st.info("👆 Please select an impact intensity above to generate tailored coping mechanisms.")
 
     else:
         st.success("✅ No external crisis factor reported. You can log environmental stressors here if circumstances change.")
