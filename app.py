@@ -1171,44 +1171,124 @@ elif page == "Case Journey":
 # ============================================================
 
 elif page == "Professional Connect":
-    st.title("👩‍⚕️ Professional Care Network")
-    st.info("Verified specialist directory for confidential mental health and trauma support.")
+    st.title("🤝 Professional Connect")
+    st.write(
+        "Connect with trusted mental-health support through government services "
+        "or private qualified professionals."
+    )
 
-    providers = [
-        ("Dr. Asha Mehta", "Senior Consultant Psychiatrist", "Online Tele-consult", "Available Today", "⭐⭐⭐⭐⭐"),
-        ("Dr. Rahul Sharma", "Clinical Psychologist (Trauma Specialist)", "Online / In-person", "Next Available: Tomorrow", "⭐⭐⭐⭐⭐"),
-        ("Dr. Neha Verma", "Licensed Psychotherapist & Counsellor", "Online Video Session", "Available Today", "⭐⭐⭐⭐½")
-    ]
+    # --------------------------------------------------------
+    # GOVERNMENT SUPPORT
+    # --------------------------------------------------------
+    st.subheader("🏛️ Government Mental Health Support")
+    st.caption("Official national services and public mental-health support.")
 
-    for name, role, mode, availability, rating in providers:
-        with st.container(border=True):
-            col1, col2, col3 = st.columns([3, 2, 2])
+    with st.container(border=True):
+        st.markdown("### 🧠 Tele-MANAS")
+        st.write(
+            "**Government of India – National Tele Mental Health Programme**"
+        )
+        st.write(
+            "Free and confidential 24×7 tele-mental health support. "
+            "Counsellors can provide initial support and refer users to "
+            "mental-health specialists when required."
+        )
 
-            with col1:
-                st.subheader(f"👩‍⚕️ {name}")
-                st.write(f"**Specialty:** {role}")
-                st.caption(f"Rating: {rating} • Verified Medical License")
+        col1, col2 = st.columns(2)
 
-            with col2:
-                st.write(f"**Mode:** {mode}")
-                st.write(f"**Status:** `{availability}`")
+        with col1:
+            st.metric("Helpline", "14416")
 
-            with col3:
-                if st.button("Request Consultation", key=name, type="primary"):
-                    st.success(f"Appointment request submitted to {name}. Their care coordinator will contact you promptly.")
+        with col2:
+            st.metric("Alternate", "1800-89-14416")
+
+        st.info("📞 Call 14416 for Tele-MANAS support.")
+
+    with st.container(border=True):
+        st.markdown("### 🏥 Ayushman Arogya Mandir")
+        st.write(
+            "Government primary-health facilities that also provide "
+            "screening and basic management for mental-health concerns."
+        )
+        st.caption("Mental-health services may vary by centre and location.")
 
     st.divider()
 
-    st.subheader("🤝 Designate a Trusted Support Contact")
-    trusted_person = st.text_input("Contact Name (Friend, Family, or Mentor)")
-    relationship = st.selectbox("Relationship", ["Family Member", "Close Friend", "Legal Advocate", "Other"])
+    # --------------------------------------------------------
+    # PRIVATE PROFESSIONAL SUPPORT
+    # --------------------------------------------------------
+    st.subheader("👩‍⚕️ Private Professional Support")
+    st.caption(
+        "For users who want a private consultation with a qualified "
+        "mental-health professional."
+    )
+
+    professional_type = st.selectbox(
+        "What type of professional are you looking for?",
+        [
+            "Psychiatrist",
+            "Clinical Psychologist",
+            "Psychologist / Counsellor",
+            "Trauma-focused Therapist"
+        ]
+    )
+
+    mode = st.selectbox(
+        "Preferred consultation mode",
+        [
+            "Online Consultation",
+            "In-person Consultation",
+            "Either"
+        ]
+    )
+
+    with st.container(border=True):
+        st.markdown(f"### 🔎 {professional_type}")
+        st.write(
+            f"Preferred mode: **{mode}**"
+        )
+
+        st.info(
+            "Sahara AI does not invent or recommend individual doctors. "
+            "Use a verified professional directory or licensed provider "
+            "when booking a private consultation."
+        )
+
+        if st.button("🔍 Find a Professional", type="primary"):
+            st.success(
+                f"Search criteria saved: {professional_type} • {mode}"
+            )
+
+    st.divider()
+
+    # --------------------------------------------------------
+    # TRUSTED CONTACT
+    # --------------------------------------------------------
+    st.subheader("🤝 Trusted Support Contact")
+
+    trusted_person = st.text_input(
+        "Contact Name (Friend, Family, or Mentor)"
+    )
+
+    relationship = st.selectbox(
+        "Relationship",
+        [
+            "Family Member",
+            "Close Friend",
+            "Mentor",
+            "Legal Advocate",
+            "Other"
+        ]
+    )
 
     if st.button("Save Trusted Contact"):
         if trusted_person.strip():
-            st.success(f"✅ {trusted_person} has been registered as your {relationship.lower()} emergency support contact.")
+            st.success(
+                f"✅ {trusted_person} has been saved as your "
+                f"{relationship.lower()} support contact."
+            )
         else:
             st.warning("Please enter a valid contact name.")
-
 
 # ============================================================
 # COUNSELLOR DASHBOARD
