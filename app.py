@@ -1043,6 +1043,18 @@ elif page == "Wellbeing Trend":
         st.info("No assessment history recorded yet. Complete your first assessment to begin tracking.")
     else:
         df = pd.DataFrame(history)
+        # Create a unique, shorter date string for straight labels (and guarantee next unit)
+        display_dates = []
+        for i, row in df.iterrows():
+            try:
+                # Convert to shorter format: 'MM-DD HH:MM'
+                dt = pd.to_datetime(row['date'])
+                # If there are duplicates in the exact same minute, the sequence number ensures uniqueness
+                d_str = dt.strftime("%m-%d %H:%M")
+            except:
+                d_str = str(row['date'])
+            display_dates.append(f"{d_str} (#{i+1})")
+        df["display_date"] = display_dates
         latest = df.iloc[-1]
 
         col1, col2, col3 = st.columns(3)
@@ -1057,7 +1069,7 @@ elif page == "Wellbeing Trend":
         st.subheader("📊 Distress Trajectory (Scale 0 - 100)")
 
         trend_base = alt.Chart(df).encode(
-            x=alt.X("date:N", title="Check-in Date & Time", axis=alt.Axis(labelAngle=-25)),
+            x=alt.X("display_date:O", sort=df["display_date"].tolist(), title="Check-in Sequence & Time", axis=alt.Axis(labelAngle=0)),
             y=alt.Y(
                 "score:Q",
                 title="Distress Score (0 - 100)",
@@ -1212,6 +1224,18 @@ elif page == "Counsellor Dashboard":
         st.info("No assessment records found in the current session. Complete an assessment to generate analytics.")
     else:
         df = pd.DataFrame(history)
+        # Create a unique, shorter date string for straight labels (and guarantee next unit)
+        display_dates = []
+        for i, row in df.iterrows():
+            try:
+                # Convert to shorter format: 'MM-DD HH:MM'
+                dt = pd.to_datetime(row['date'])
+                # If there are duplicates in the exact same minute, the sequence number ensures uniqueness
+                d_str = dt.strftime("%m-%d %H:%M")
+            except:
+                d_str = str(row['date'])
+            display_dates.append(f"{d_str} (#{i+1})")
+        df["display_date"] = display_dates
         df["score"] = pd.to_numeric(df["score"], errors="coerce")
         df = df.dropna(subset=["score"])
 
