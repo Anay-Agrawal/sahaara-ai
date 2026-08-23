@@ -1737,25 +1737,26 @@ elif page == "Resilience Support":
                     "Severe Air Pollution / Smog",
                     "Community Conflict / Riot / Lockdown",
                     "Eviction / Housing Insecurity"
-                ]
+                ],
+                index=None
             )
 
             legal_strain = st.select_slider(
                 "Legal & Case Proceeding Stress Level:",
                 options=["None", "Mild", "Moderate", "Severe", "Critical"],
-                value="Moderate"
+                value="None"
             )
 
             social_disruption = st.select_slider(
                 "Social / Family Disruption Level:",
                 options=["None", "Mild", "Moderate", "Severe", "Critical"],
-                value="Mild"
+                value="None"
             )
 
             financial_strain = st.select_slider(
                 "Economic & Living Burden:",
                 options=["None", "Mild", "Moderate", "Severe", "Critical"],
-                value="Moderate"
+                value="None"
             )
 
         with c2:
@@ -1763,84 +1764,87 @@ elif page == "Resilience Support":
             shelter_safety = st.radio(
                 "Access to safe and secure physical shelter:",
                 ["Fully secure", "Moderately secure", "Uncertain / Unsafe"],
-                index=0
+                index=None
             )
 
             trusted_support_avail = st.radio(
                 "Immediate access to trusted family or friend:",
                 ["Strong support available", "Limited support", "Completely isolated"],
-                index=0
+                index=None
             )
 
-            access_to_legal_aid = st.checkbox("Active legal representation / DLSA assigned", value=True)
-            access_to_counsellor = st.checkbox("Active connection with mental-health professional", value=True)
-            daily_routine_stability = st.checkbox("Able to maintain basic nutrition & sleep routine", value=True)
+            access_to_legal_aid = st.checkbox("Active legal representation / DLSA assigned", value=False)
+            access_to_counsellor = st.checkbox("Active connection with mental-health professional", value=False)
+            daily_routine_stability = st.checkbox("Able to maintain basic nutrition & sleep routine", value=False)
 
         st.divider()
 
         if st.button("🧮 Compute Dynamic Resilience & Coping Profile", use_container_width=True):
-            strain_map = {"None": 0, "Mild": 1, "Moderate": 2, "Severe": 3, "Critical": 4}
-            env_map = {
-                "No major event (Normal context)": 0,
-                "Severe Heatwave / Climate Strain": 2,
-                "Flooding / Displacement": 4,
-                "Severe Air Pollution / Smog": 2,
-                "Community Conflict / Riot / Lockdown": 4,
-                "Eviction / Housing Insecurity": 3
-            }
-
-            stress_score = (
-                env_map[env_event] * 3 +
-                strain_map[legal_strain] * 3 +
-                strain_map[social_disruption] * 2 +
-                strain_map[financial_strain] * 2
-            )
-
-            prot_score = 0
-            if shelter_safety == "Fully secure": prot_score += 10
-            elif shelter_safety == "Moderately secure": prot_score += 5
-            
-            if trusted_support_avail == "Strong support available": prot_score += 10
-            elif trusted_support_avail == "Limited support": prot_score += 5
-
-            if access_to_legal_aid: prot_score += 5
-            if access_to_counsellor: prot_score += 5
-            if daily_routine_stability: prot_score += 5
-
-            def clamp(value, minimum=0, maximum=100):
-                return max(minimum, min(maximum, value))
-
-            base_capacity = 50 + (prot_score * 1.5) - (stress_score * 1.3)
-            resilience_index = round(clamp(base_capacity, 10, 98))
-
-            st.subheader("🎯 Dynamic Resilience Assessment Result")
-
-            rc_col1, rc_col2, rc_col3 = st.columns(3)
-            with rc_col1:
-                st.metric("Resilience Capacity Index", f"{resilience_index}%")
-                if resilience_index >= 70:
-                    st.caption("🟢 Robust Coping Capacity")
-                elif resilience_index >= 45:
-                    st.caption("🟡 Moderate Vulnerability — Active Buffering Needed")
-                else:
-                    st.caption("🔴 High Vulnerability — Urgent Support Recommended")
-
-            with rc_col2:
-                st.metric("Cumulative External Stress", f"{round(clamp(stress_score * 2.5))}/100")
-            with rc_col3:
-                st.metric("Protective Buffer Strength", f"{round(clamp(prot_score * 2.8))}/100")
-
-            # Recommendations based on evaluation
-            st.markdown("#### 🛠️ Contextual Intervention & Support Blueprint")
-            if resilience_index >= 70:
-                st.success("✅ **Favorable Coping Balance**: Protective buffers adequately shield against ongoing stressors. Continue routine mindfulness and community engagement.")
-            elif resilience_index >= 45:
-                st.warning("⚠️ **Moderate Strain Alert**: External burdens are putting pressure on coping buffers. Strengthen trusted-person contact and leverage legal aid support.")
+            if None in [env_event, shelter_safety, trusted_support_avail]:
+                st.warning("Please fill out all dropdowns and radio options above to calculate your profile.")
             else:
-                st.error("🚨 **High Strain & Vulnerability Alert**: Cumulative stressors significantly outweigh current protective factors. Immediate safety planning and professional intervention recommended.")
+                strain_map = {"None": 0, "Mild": 1, "Moderate": 2, "Severe": 3, "Critical": 4}
+                env_map = {
+                    "No major event (Normal context)": 0,
+                    "Severe Heatwave / Climate Strain": 2,
+                    "Flooding / Displacement": 4,
+                    "Severe Air Pollution / Smog": 2,
+                    "Community Conflict / Riot / Lockdown": 4,
+                    "Eviction / Housing Insecurity": 3
+                }
 
-            st.write(f"• **Environmental Action:** Specific guidance for *{env_event}* — Maintain access to local emergency centers and hydrated/safe resting areas.")
-            st.write(f"• **Legal Proceeding Support:** For *{legal_strain}* strain — Request pre-hearing briefing sessions with your assigned legal aid advocate.")
+                stress_score = (
+                    env_map[env_event] * 3 +
+                    strain_map[legal_strain] * 3 +
+                    strain_map[social_disruption] * 2 +
+                    strain_map[financial_strain] * 2
+                )
+
+                prot_score = 0
+                if shelter_safety == "Fully secure": prot_score += 10
+                elif shelter_safety == "Moderately secure": prot_score += 5
+            
+                if trusted_support_avail == "Strong support available": prot_score += 10
+                elif trusted_support_avail == "Limited support": prot_score += 5
+
+                if access_to_legal_aid: prot_score += 5
+                if access_to_counsellor: prot_score += 5
+                if daily_routine_stability: prot_score += 5
+
+                def clamp(value, minimum=0, maximum=100):
+                    return max(minimum, min(maximum, value))
+
+                base_capacity = 50 + (prot_score * 1.5) - (stress_score * 1.3)
+                resilience_index = round(clamp(base_capacity, 10, 98))
+
+                st.subheader("🎯 Dynamic Resilience Assessment Result")
+
+                rc_col1, rc_col2, rc_col3 = st.columns(3)
+                with rc_col1:
+                    st.metric("Resilience Capacity Index", f"{resilience_index}%")
+                    if resilience_index >= 70:
+                        st.caption("🟢 Robust Coping Capacity")
+                    elif resilience_index >= 45:
+                        st.caption("🟡 Moderate Vulnerability — Active Buffering Needed")
+                    else:
+                        st.caption("🔴 High Vulnerability — Urgent Support Recommended")
+
+                with rc_col2:
+                    st.metric("Cumulative External Stress", f"{round(clamp(stress_score * 2.5))}/100")
+                with rc_col3:
+                    st.metric("Protective Buffer Strength", f"{round(clamp(prot_score * 2.8))}/100")
+
+                # Recommendations based on evaluation
+                st.markdown("#### 🛠️ Contextual Intervention & Support Blueprint")
+                if resilience_index >= 70:
+                    st.success("✅ **Favorable Coping Balance**: Protective buffers adequately shield against ongoing stressors. Continue routine mindfulness and community engagement.")
+                elif resilience_index >= 45:
+                    st.warning("⚠️ **Moderate Strain Alert**: External burdens are putting pressure on coping buffers. Strengthen trusted-person contact and leverage legal aid support.")
+                else:
+                    st.error("🚨 **High Strain & Vulnerability Alert**: Cumulative stressors significantly outweigh current protective factors. Immediate safety planning and professional intervention recommended.")
+
+                st.write(f"• **Environmental Action:** Specific guidance for *{env_event}* — Maintain access to local emergency centers and hydrated/safe resting areas.")
+                st.write(f"• **Legal Proceeding Support:** For *{legal_strain}* strain — Request pre-hearing briefing sessions with your assigned legal aid advocate.")
 
     # ----------------------------------------------------
     # TAB 2: INTERACTIVE GROUNDING & CALMING TOOLKIT
