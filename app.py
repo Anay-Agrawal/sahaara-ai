@@ -423,51 +423,26 @@ if page == "Home":
     st.markdown("<br><h3 style='font-size: 20px; font-weight: 600; margin-bottom: 24px;'>How It Works</h3>", unsafe_allow_html=True)
 
     # Simplified representation of the flowchart to match look and feel
-    st.markdown("""
-        <div style="background-color: #12131A; padding: 20px; border-radius: 12px; border: 1px solid #1E1F2A; text-align: center;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; position: relative;">
-                <div style="position: absolute; top: 20px; left: 10%; right: 10%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
-                <div style="z-index: 2; width: 33%;">
-                    <div style="font-size: 24px; margin-bottom: 8px;">👤</div>
-                    <div style="font-size: 12px; color: #CBD5E1;">User<br>Check-in</div>
-                </div>
-                <div style="z-index: 2; width: 33%;">
-                    <div style="font-size: 24px; margin-bottom: 8px;">🧠</div>
-                    <div style="font-size: 12px; color: #CBD5E1;">AI-assisted<br>Assessment</div>
-                </div>
-                <div style="z-index: 2; width: 33%;">
-                    <div style="font-size: 24px; margin-bottom: 8px;">🎯</div>
-                    <div style="font-size: 12px; color: #CBD5E1;">Dynamic<br>Distress Score</div>
-                </div>
-            </div>
-            
-            <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 40px; position: relative;">
-                <div style="position: absolute; top: 20px; left: 25%; right: 25%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
-                <div style="z-index: 2; width: 33%;"></div>
-                <div style="z-index: 2; width: 33%;">
-                    <div style="font-size: 24px; margin-bottom: 8px;">📈</div>
-                    <div style="font-size: 12px; color: #CBD5E1;">Trend<br>Detection</div>
-                </div>
-                <div style="z-index: 2; width: 33%;">
-                    <div style="font-size: 24px; margin-bottom: 8px;">⚠️</div>
-                    <div style="font-size: 12px; color: #CBD5E1;">Early<br>Warning</div>
-                </div>
-            </div>
-            
-            <div style="display: flex; justify-content: space-around; align-items: center; position: relative;">
-                <div style="position: absolute; top: 20px; left: 25%; right: 25%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
-                <div style="z-index: 2; width: 33%;">
-                    <div style="font-size: 24px; margin-bottom: 8px;">👥</div>
-                    <div style="font-size: 12px; color: #CBD5E1;">Human<br>Professional<br>Review</div>
-                </div>
-                <div style="z-index: 2; width: 33%;">
-                    <div style="font-size: 24px; margin-bottom: 8px;">📞</div>
-                    <div style="font-size: 12px; color: #CBD5E1;">Support &<br>Follow-up</div>
-                </div>
-                <div style="z-index: 2; width: 33%;"></div>
-            </div>
+    st.markdown("""<div style="background-color: #12131A; padding: 20px; border-radius: 12px; border: 1px solid #1E1F2A; text-align: center;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; position: relative;">
+            <div style="position: absolute; top: 20px; left: 10%; right: 10%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
+            <div style="z-index: 2; width: 33%;"><div style="font-size: 24px; margin-bottom: 8px;">👤</div><div style="font-size: 12px; color: #CBD5E1;">User<br>Check-in</div></div>
+            <div style="z-index: 2; width: 33%;"><div style="font-size: 24px; margin-bottom: 8px;">🧠</div><div style="font-size: 12px; color: #CBD5E1;">AI-assisted<br>Assessment</div></div>
+            <div style="z-index: 2; width: 33%;"><div style="font-size: 24px; margin-bottom: 8px;">🎯</div><div style="font-size: 12px; color: #CBD5E1;">Dynamic<br>Distress Score</div></div>
         </div>
-    """, unsafe_allow_html=True)
+        <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 40px; position: relative;">
+            <div style="position: absolute; top: 20px; left: 25%; right: 25%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
+            <div style="z-index: 2; width: 33%;"></div>
+            <div style="z-index: 2; width: 33%;"><div style="font-size: 24px; margin-bottom: 8px;">📈</div><div style="font-size: 12px; color: #CBD5E1;">Trend<br>Detection</div></div>
+            <div style="z-index: 2; width: 33%;"><div style="font-size: 24px; margin-bottom: 8px;">⚠️</div><div style="font-size: 12px; color: #CBD5E1;">Early<br>Warning</div></div>
+        </div>
+        <div style="display: flex; justify-content: space-around; align-items: center; position: relative;">
+            <div style="position: absolute; top: 20px; left: 25%; right: 25%; height: 2px; background-color: #2762A8; z-index: 1;"></div>
+            <div style="z-index: 2; width: 33%;"><div style="font-size: 24px; margin-bottom: 8px;">👥</div><div style="font-size: 12px; color: #CBD5E1;">Human<br>Professional<br>Review</div></div>
+            <div style="z-index: 2; width: 33%;"><div style="font-size: 24px; margin-bottom: 8px;">📞</div><div style="font-size: 12px; color: #CBD5E1;">Support &<br>Follow-up</div></div>
+            <div style="z-index: 2; width: 33%;"></div>
+        </div>
+    </div>""", unsafe_allow_html=True)
 elif page == "AI Assessment":
 
     # --- RESULT VIEW IF ALREADY ANALYZED ---
